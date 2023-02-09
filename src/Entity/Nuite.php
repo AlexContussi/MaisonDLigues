@@ -6,24 +6,28 @@ use App\Repository\NuiteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'nuite')]
 #[ORM\Entity(repositoryClass: NuiteRepository::class)]
 class Nuite
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name:'dateNuitee',type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateNuitee = null;
 
     #[ORM\ManyToOne(inversedBy: 'nuites')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name:'hotel',nullable: false)]
     private ?Hotel $hotel = null;
 
     #[ORM\ManyToOne(inversedBy: 'nuites')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name:'categorie',nullable: false)]
     private ?CategorieChambre $categorie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'nuites')]
+    private ?Inscription $inscription = null;
 
     public function getId(): ?int
     {
@@ -62,6 +66,18 @@ class Nuite
     public function setCategorie(?CategorieChambre $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getInscription(): ?Inscription
+    {
+        return $this->inscription;
+    }
+
+    public function setInscription(?Inscription $inscription): self
+    {
+        $this->inscription = $inscription;
 
         return $this;
     }

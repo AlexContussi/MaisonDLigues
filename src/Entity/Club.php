@@ -7,30 +7,31 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'club')]
 #[ORM\Entity(repositoryClass: ClubRepository::class)]
 class Club
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'id')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'nom',length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'adresse1',length: 255)]
     private ?string $adresse1 = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name:'adresse2',length: 255, nullable: true)]
     private ?string $adresse2 = null;
 
-    #[ORM\Column(length: 5)]
+    #[ORM\Column(name:'cp',length: 5)]
     private ?string $cp = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'ville',length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(name:'tel',length: 10)]
     private ?string $tel = null;
 
     #[ORM\OneToMany(mappedBy: 'club', targetEntity: Licencie::class)]

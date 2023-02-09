@@ -5,24 +5,25 @@ namespace App\Entity;
 use App\Repository\CompteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'compte')]
 #[ORM\Entity(repositoryClass: CompteRepository::class)]
 class Compte
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'id')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'email',length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: 'numlicence')]
     private ?int $numlicence = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'password',length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'roles',length: 255)]
     private ?string $roles = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

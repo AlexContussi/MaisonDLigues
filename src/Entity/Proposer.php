@@ -5,23 +5,24 @@ namespace App\Entity;
 use App\Repository\ProposerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'proposer')]
 #[ORM\Entity(repositoryClass: ProposerRepository::class)]
 class Proposer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:'tarifNuite')]
     private ?float $tarifNuite = null;
 
     #[ORM\ManyToOne(inversedBy: 'tarifs')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name:'hotel',nullable: false)]
     private ?Hotel $hotel = null;
 
     #[ORM\ManyToOne(inversedBy: 'tarifs')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name:'categorie',nullable: false)]
     private ?CategorieChambre $categorie = null;
 
     public function getId(): ?int

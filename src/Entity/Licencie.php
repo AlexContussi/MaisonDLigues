@@ -6,42 +6,43 @@ use App\Repository\LicencieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'licencie')]
 #[ORM\Entity(repositoryClass: LicencieRepository::class)]
 class Licencie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'id')]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:'numlicence')]
     private ?int $numlicence = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'nom',length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'prenom',length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'adresse1',length: 255)]
     private ?string $adresse1 = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name:'adresse2',length: 255, nullable: true)]
     private ?string $adresse2 = null;
 
-    #[ORM\Column(length: 5)]
+    #[ORM\Column(name:'cp',length: 5)]
     private ?string $cp = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'ville',length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(name:'tel',length: 10, nullable: true)]
     private ?string $tel = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name:'mail',length: 255, nullable: true)]
     private ?string $mail = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name:'dateAdhesion',type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAdhesion = null;
 
     #[ORM\ManyToOne(inversedBy: 'licencies')]
