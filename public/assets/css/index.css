@@ -1,0 +1,39 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 9 févr. 2023, 15:54:38
+    Author     : kilian.breton
+*/
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    bottom:0;
+    position: absolute;
+    width: 100%;
+}
+.left, .right{
+    display: flex;
+    flex-direction: column;
+}
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+img{
+    max-height: 100px;
+    max-width: 100px;
+}
+.footer_img{
+     border-radius: 5px;
+}
+.header_img{
+    margin: 10px;
+    border-radius: 5px;
+}
