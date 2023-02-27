@@ -7,17 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'qualite')]
 #[ORM\Entity(repositoryClass: QualiteRepository::class)]
 class Qualite
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'libelleQualite',length: 255)]
     private ?string $libelleQualite = null;
 
+    #[ORM\OneToMany(mappedBy: 'qualite', targetEntity: Licencie::class)]
     #[ORM\OneToMany(mappedBy: 'qualite', targetEntity: Licencie::class)]
     private Collection $licencies;
 

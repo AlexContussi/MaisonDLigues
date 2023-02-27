@@ -6,18 +6,19 @@ use App\Repository\VacationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'vacation')]
 #[ORM\Entity(repositoryClass: VacationRepository::class)]
 class Vacation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name:'dateheureDebut',type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateheureDebut = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name:'dateheureFin',type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateheureFin = null;
 
     #[ORM\ManyToOne(inversedBy: 'vacations')]

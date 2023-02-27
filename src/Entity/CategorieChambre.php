@@ -7,15 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'categorieChambre')]
 #[ORM\Entity(repositoryClass: CategorieChambreRepository::class)]
 class CategorieChambre
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'id')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'libelleCategorie',length: 255)]
     private ?string $libelleCategorie = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Proposer::class)]

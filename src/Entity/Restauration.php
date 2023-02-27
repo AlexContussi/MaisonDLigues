@@ -6,18 +6,19 @@ use App\Repository\RestaurationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'restauration')]
 #[ORM\Entity(repositoryClass: RestaurationRepository::class)]
 class Restauration
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name:'dateRestauration',type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateRestauration = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'typeRepas',length: 255)]
     private ?string $typeRepas = null;
 
     #[ORM\ManyToOne(inversedBy: 'restaurations')]

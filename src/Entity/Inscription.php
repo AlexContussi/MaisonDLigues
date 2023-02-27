@@ -8,23 +8,28 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'inscription')]
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
 class Inscription
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name:'dateInscription',type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateInscription = null;
 
     #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Restauration::class)]
     private Collection $restaurations;
 
+    #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Nuite::class)]
+    private Collection $nuites;
+
     public function __construct()
     {
         $this->restaurations = new ArrayCollection();
+        $this->nuites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,6 +73,36 @@ class Inscription
             // set the owning side to null (unless already changed)
             if ($restauration->getInscription() === $this) {
                 $restauration->setInscription(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Nuite>
+     */
+    public function getNuites(): Collection
+    {
+        return $this->nuites;
+    }
+
+    public function addNuite(Nuite $nuite): self
+    {
+        if (!$this->nuites->contains($nuite)) {
+            $this->nuites->add($nuite);
+            $nuite->setInscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNuite(Nuite $nuite): self
+    {
+        if ($this->nuites->removeElement($nuite)) {
+            // set the owning side to null (unless already changed)
+            if ($nuite->getInscription() === $this) {
+                $nuite->setInscription(null);
             }
         }
 

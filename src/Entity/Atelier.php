@@ -7,18 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'atelier')]
 #[ORM\Entity(repositoryClass: AtelierRepository::class)]
 class Atelier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'id')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'libelle',length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:'nbPlacesMaxi')]
     private ?int $nbPlacesMaxi = null;
 
     #[ORM\ManyToMany(targetEntity: Theme::class, mappedBy: 'ateliers')]
