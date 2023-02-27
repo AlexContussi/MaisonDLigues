@@ -2,33 +2,28 @@
 
 {% block body %}
 <style>
-.gridAteliers{display:grid;
-    grid-template-rows :repeat(3,1fr);
-    grid-template-columns :repeat(2,1fr);
-    margin: 3%;
+.gridAteliers{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 2% 10%;
 }
-.gridAteliers div {
- 
-  padding: 4%;
-  padding-left: 10%;
-}
-.noSelected{
-    border: 1px solid gray;
-}
-
-
 </style>
-<div class="gridAteliers">    
+
+<div class="gridAteliers">
     {% for atelier in ateliersData %}
-        <div class="noSelected">
-            <ul>{{atelier.libelle}}</ul>
-            {% for themes in atelier.themes %}
-                <li>{{themes.libelle}}</li>
-            {% endfor %}
+        <div class="card text-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{atelier.libelle}} </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">
+                    {% for themes in atelier.themes %}
+                        {{themes.libelle}}
+                    {% endfor %}
+                </p>
+            </div>
         </div>
     {% endfor %}
 </div>
-
 <script>
     $('.noSelected').onhover(function(){
         $(this).addClass('selectedAtelier');
