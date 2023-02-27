@@ -12,9 +12,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    bottom:0;
-    position: absolute;
+  /*  bottom:0;
+    position: absolute;*/
     width: 100%;
+    min-height: 50px;
+    padding-right: 5px;
+   padding-left: 5px
 }
 .left, .right{
     display: flex;
@@ -37,3 +40,29 @@ img{
     margin: 10px;
     border-radius: 5px;
 }
+
+
+/*Dashboard*/
+.container{
+
+}
+.dates_congres{
+    
+}
+.ateliers{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    padding-top: 10%;
+}
+
+.formules{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    padding-top: 10%;
+}
+
+
