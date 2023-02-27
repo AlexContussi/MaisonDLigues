@@ -29,6 +29,13 @@ class PrincipalController extends AbstractController
             'ateliersData'=>$ateliersData,
         ]);
     }
+    #[Route('/ajaxShowPartialAtelierVacations', name: 'ajaxShowPartialAtelierVacations')]
+    public function ajaxShowPartialAtelierVacations()
+    {
+        
+        return $this->render('/_partials/_partialAtelierVacation.html.twig', [
+        ]);
+    }
     
     #[Route('/formules', name: 'formules')]
     public function formules()

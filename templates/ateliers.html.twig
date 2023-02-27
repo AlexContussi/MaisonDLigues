@@ -7,26 +7,48 @@
     grid-template-columns: repeat(3,1fr);
     padding: 2% 10%;
 }
+.selectedAtelier .card-header{background-color: #b8d8be;}
+.selectedAtelier .card-body{background-color: #d2e7d6;}
+
 </style>
+
 
 <div class="gridAteliers">
     {% for atelier in ateliersData %}
-        <div class="card text-dark mb-3" style="max-width: 18rem;">
+        <div class="card text-dark mb-3" idAtelier='{{atelier.id}}' style="max-width: 18rem;">
             <div class="card-header">{{atelier.libelle}} </div>
             <div class="card-body">
                 <h5 class="card-title"></h5>
                 <p class="card-text">
                     {% for themes in atelier.themes %}
-                        {{themes.libelle}}
+                        {{themes.libelle}}</br>
                     {% endfor %}
                 </p>
             </div>
         </div>
     {% endfor %}
 </div>
+
+<div class='showPartial'>
+
+
+</div>
+
+
+
 <script>
-    $('.noSelected').onhover(function(){
+    $('.card').click(function(){
+        $('.card').removeClass('selectedAtelier');
         $(this).addClass('selectedAtelier');
+        idAtelier = $(this).attr('idAtelier');
+        $.ajax([
+            type: 'POST',  
+            path : 'ajaxShowPartialAtelierVacations'
+            data: { 'idAtelier': idAtelier },  
+            success: function (result) {
+                $('.showPartial').html(result);
+            },
+        ])
     });
 
 
