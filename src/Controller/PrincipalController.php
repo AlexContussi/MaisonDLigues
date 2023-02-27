@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Atelier;
+use App\Entity\Hotel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PrincipalController extends AbstractController
@@ -26,6 +27,15 @@ class PrincipalController extends AbstractController
         $ateliersData = $this->getDoctrine()->getRepository(Atelier::class)->findAll();
         return $this->render('ateliers.html.twig', [
             'ateliersData'=>$ateliersData,
+        ]);
+    }
+    
+    #[Route('/formules', name: 'formules')]
+    public function formules()
+    {
+        $formulesData = $this->getDoctrine()->getRepository(Hotel::class)->findAll();
+        return $this->render('formules.html.twig', [
+            'formulesData'=>$formulesData,
         ]);
     }
 
