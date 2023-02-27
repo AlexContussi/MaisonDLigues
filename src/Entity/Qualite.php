@@ -20,7 +20,6 @@ class Qualite
     private ?string $libelleQualite = null;
 
     #[ORM\OneToMany(mappedBy: 'qualite', targetEntity: Licencie::class)]
-    #[ORM\OneToMany(mappedBy: 'qualite', targetEntity: Licencie::class)]
     private Collection $licencies;
 
     public function __construct()

@@ -36,7 +36,7 @@ class Licencie
     #[ORM\Column(name:'ville',length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column(name:'tel',length: 10, nullable: true)]
+    #[ORM\Column(name:'tel',length: 14, nullable: true)]
     private ?string $tel = null;
 
     #[ORM\Column(name:'mail',length: 255, nullable: true)]

@@ -24,4 +24,4 @@
     cd var
     cd www
     git clone https://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@github.com/AlexContussi/MaisonDLigues.git
-    sed -i "s/^\tDocumentRoot \/var\/www\/html/\tDocumentRoot \/home\/www\/public/" /etc/apache2/sites-available/000-default.conf
+    sed -i "s/^\tDocumentRoot \/var\/www\/html/\tDocumentRoot /\var\/www\/public/" /etc/apache2/sites-available/000-default.conf
