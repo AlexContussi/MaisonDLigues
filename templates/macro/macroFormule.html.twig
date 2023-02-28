@@ -30,30 +30,35 @@
 </style>
 
     <div class="gridFormules">    
-        {% for formule in formulesData %}
-            <div class="noSelected">
-                <div class="titleFormule">{{formule.nom}}</div>
-                <div class="subtitleFormule">Informations :
-                    <div>Adresse: {{formule.adresse1}}
-                    </div>
-                    {% if formule.adresse2 != null %}
-                    <div>Complément d'adresse : {{formule.adresse2}}</div>
-                    {% endif %}
-                    <div>Code postal : {{formule.cp}}</div>
-                    <div>Ville : {{formule.ville}}</div>
-                    <div>Numéro de téléphone : {{formule.tel}}</div>
-                    <div>Email : {{formule.mail}}</div>
+    {% for formule in formulesData %}
+        <div class="noSelected">
+            <div class="titleFormule">{{formule.nom}}</div>
+            <div class="subtitleFormule">Informations :
+                <div>Adresse: {{formule.adresse1}}
                 </div>
-                <div class="subtitleFormule">Tarifs : 
-                {% for tarif in formule.tarifs %}
-                    <div class="tarif"> 
-                        <div>{{tarif.categorie.libelleCategorie}} + petit déjeuner </div>
-                        <div>{{tarif.tarifNuite}} €/nuit</div> 
-                    </div>
-                {% endfor %}
-                </div>
-                <button class="btn btn-dark" type="button">Reserver</button>
+                {% if formule.adresse2 != null %}
+                <div>Complément d'adresse : {{formule.adresse2}}</div>
+                {% endif %}
+                <div>Code postal : {{formule.cp}}</div>
+                <div>Ville : {{formule.ville}}</div>
+                <div>Numéro de téléphone : {{formule.tel}}</div>
+                <div>Email : {{formule.mail}}</div>
             </div>
-        {% endfor %}
-    </div>
+            <div class="subtitleFormule">Tarifs : 
+            {% for tarif in formule.tarifs %}
+                <div class="tarif"> 
+                    <fieldset>
+                        <div>
+                        <input type="radio" id="categorie" name="categorie" value="categorie"
+                               checked>
+                        <label for="huey">{{tarif.categorie.libelleCategorie}} + petit déjeuner </label>
+                      </div>
+                    </fieldset>
+                    <div>{{tarif.tarifNuite}} €/nuit</div> 
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
 {% endmacro %}
