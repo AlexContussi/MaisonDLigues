@@ -50,12 +50,17 @@
             <div class="subtitleFormule">Tarifs : 
             {% for tarif in formule.tarifs %}
                 <div class="tarif"> 
-                    <div>{{tarif.categorie.libelleCategorie}} + petit déjeuner </div>
+                    <fieldset>
+                        <div>
+                        <input type="radio" id="categorie" name="categorie" value="categorie"
+                               checked>
+                        <label for="huey">{{tarif.categorie.libelleCategorie}} + petit déjeuner </label>
+                      </div>
+                    </fieldset>
                     <div>{{tarif.tarifNuite}} €/nuit</div> 
                 </div>
             {% endfor %}
             </div>
-            <button class="btn btn-dark" type="button">Reserver</button>
         </div>
     {% endfor %}
 </div>
