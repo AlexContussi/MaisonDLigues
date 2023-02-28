@@ -5,6 +5,7 @@
     grid-template-columns :repeat(2,1fr);
     margin: 3%;
     gap:30px;
+    height:400px
 }
 .gridFormules div {
 
@@ -26,39 +27,69 @@
     padding-top: 2%;
     padding-bottom: 1%;
 }
+.selectedFormule{background-color: #d2e7d6;}
 
 </style>
 
     <div class="gridFormules">    
-    {% for formule in formulesData %}
-        <div class="noSelected ok">
-            <div class="titleFormule">{{formule.nom}}</div>
-            <div class="subtitleFormule">Informations :
-                <div>Adresse: {{formule.adresse1}}
+        {% for formule in formulesData %}
+            <div class="noSelected">
+                <div class="titleFormule">{{formule.nom}}</div>
+                <div class="subtitleFormule">Informations :
+                    <div>Adresse: {{formule.adresse1}}
+                    </div>
+                    {% if formule.adresse2 != null %}
+                    <div>Complément d'adresse : {{formule.adresse2}}</div>
+                    {% endif %}
+                    <div>Code postal : {{formule.cp}}</div>
+                    <div>Ville : {{formule.ville}}</div>
+                    <div>Numéro de téléphone : {{formule.tel}}</div>
+                    <div>Email : {{formule.mail}}</div>
                 </div>
-                {% if formule.adresse2 != null %}
-                <div>Complément d'adresse : {{formule.adresse2}}</div>
-                {% endif %}
-                <div>Code postal : {{formule.cp}}</div>
-                <div>Ville : {{formule.ville}}</div>
-                <div>Numéro de téléphone : {{formule.tel}}</div>
-                <div>Email : {{formule.mail}}</div>
-            </div>
-            <div class="subtitleFormule">Tarifs : 
-            {% for tarif in formule.tarifs %}
-                <div class="tarif"> 
-                    <fieldset>
-                        <div>
-                        <input type="radio" class="categorie" name="categorie" value="categorie"
-                               >
+                <div class="subtitleFormule">Tarifs : 
+                {% for tarif in formule.tarifs %}
+                    <div class="tarif"> 
+                        <input type="checkbox" class="categorie" name="categorie" value="categorie">
                         <label for="huey">{{tarif.categorie.libelleCategorie}} + petit déjeuner </label>
-                      </div>
-                    </fieldset>
-                    <div>{{tarif.tarifNuite}} €/nuit</div> 
+                        <div>{{tarif.tarifNuite}} €/nuit</div> 
+                    </div>
+                {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="datesCongres" name="datesCongres" style="display: block ruby;padding-right: 14%;">
+            <div class="input-group mb-3" style="width: 50%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="labelDate1">Date de début</span>
+                </div>
+                <input class="form-control" type="date" name="dateReservation" min="2013-09-14" max="2013-09-15"/>
+            </div>
+            <div class="input-group mb-3" style="width: 50%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="labelDate2">Date de fin</span>
+                </div>
+                <input class="form-control" type="date" name="dateReservation"  min="2013-09-14" max="2013-09-15"/>
             </div>
         </div>
-    {% endfor %}
-</div>
+    </div>
+<script>
+    $('.categorie').click(function(){
+        $(this).parent('div').parent('div').parent('div').addClass('selectedFormule');   
+        removeClassIfUnchecked();
+    });
+    function removeClassIfUnchecked(){
+        $('.selectedFormule').each(function(){
+            let flagChecked = false;
+            $(this).find('categorie').each(function(){
+                if($(this).is(':checked')){
+                    isChecked =true;
+                }
+            })
+            if(!flagChecked){
+                $(this).removeClass('selectedFormule');
+            }
+        })
+    }
+    
+</script>
 {% endmacro %}

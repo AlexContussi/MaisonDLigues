@@ -33,11 +33,13 @@ class PrincipalController extends AbstractController
         ]);
     }
 
-    #[Route('/ajaxShowPartialAtelierVacations', name: 'ajaxShowPartialAtelierVacations')]
-    public function ajaxShowPartialAtelierVacations()
-    {
-        
-        return $this->redirectToRoute('formules');
+    #[Route('/ajaxAddFormule', name: 'ajaxAddFormule')]
+    public function ajaxAddFormule(ManagerRegistry $mr)
+    { 
+        $formulesData = $mr->getRepository(Hotel::class)->findAll();
+        return $this->render('partial/_partialMacroFormules.html.twig', [
+            'formulesData'=>$formulesData,
+        ]);
     }
     
     #[Route('/formules', name: 'formules')]
