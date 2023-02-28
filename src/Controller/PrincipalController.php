@@ -32,6 +32,7 @@ class PrincipalController extends AbstractController
             'formulesData'=>$formulesData,
         ]);
     }
+
     #[Route('/ajaxShowPartialAtelierVacations', name: 'ajaxShowPartialAtelierVacations')]
     public function ajaxShowPartialAtelierVacations()
     {

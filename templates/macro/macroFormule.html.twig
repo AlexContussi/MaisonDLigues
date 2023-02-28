@@ -31,7 +31,7 @@
 
     <div class="gridFormules">    
     {% for formule in formulesData %}
-        <div class="noSelected">
+        <div class="noSelected ok">
             <div class="titleFormule">{{formule.nom}}</div>
             <div class="subtitleFormule">Informations :
                 <div>Adresse: {{formule.adresse1}}
@@ -49,8 +49,8 @@
                 <div class="tarif"> 
                     <fieldset>
                         <div>
-                        <input type="radio" id="categorie" name="categorie" value="categorie"
-                               checked>
+                        <input type="radio" class="categorie" name="categorie" value="categorie"
+                               >
                         <label for="huey">{{tarif.categorie.libelleCategorie}} + petit déjeuner </label>
                       </div>
                     </fieldset>
