@@ -13,9 +13,35 @@
 .selectedAtelier{background-color: #d2e7d6;}
 .dateReservation{}
 .input-group-prepend{width: 130px;min-width: 130px;}
+
+.title{
+    text-align: center;
+    padding-bottom: 5%;
+    padding-top: 5%
+}
+.boxtitle{
+    padding-left: 10%
+}
+.boxtitle span{
+    color: darkgreen;
+}
+.input-group.mb-3{
+    padding-left: 10%;
+}
+.input-group.mb-3:nth-child(2) {
+    padding-top: 2%;
+}
+.btnSubmitFormReserverAterlier{
+    margin-left: 10%;
+}
 </style>
 <input id="inputAtelier" name="idAtelier" value="" hidden />
-<h2>Etape 1</h2>
+<h1 class="title">Inscription aux ateliers</h1>
+<div class="boxtitle">
+    <h2 class="steps">Etape 1</h2>
+    <span>Veuillez choisir un ou plusieurs ateliers</span>
+</div>
+
 
 <div class="gridAteliers">
     {% for atelier in ateliersData %}
@@ -35,14 +61,18 @@
 
 <input name="idFormule" value="" hidden />
 <div class='divFormule'>
-    <h2>Etape 2 </h2>
+    <div class="boxtitle">
+    <h2 class="steps">Etape 2</h2>
+    <span>Veuillez choisir un ou plusieurs hotels</span>
+</div>
     {{ macroFormule.macroFormule(formulesData) }}
 </div>
-
-<div class="datesCongres" name="datesCongres" style="padding-left: 10%;display: block ruby;padding-right: 14%;">
-    <div>
-        <h2>Etape 3</h2>
-    </div>
+ 
+<div class="datesCongres" name="datesCongres">
+   <div class="boxtitle">
+    <h2 class="steps">Etape 3</h2>
+    <span>Veuillez choisir une date</span>
+</div>
     <div class="input-group mb-3" style="width: 50%;">
         <div class="input-group-prepend">
             <span class="input-group-text" id="labelDate1">Date de début</span>
@@ -78,15 +108,16 @@
 
     $('.btnSubmitFormReserverAterlier').click(function(){
         if (confirm('Valider la réservation ?')) {
-            $.ajax(
+            $.ajax({
                 method: "POST",
                 url: "some.php",
                 data: { name: "John", location: "Boston" },
                 success: function (result) {
                     console.log(result);
                 }
-
-           )
+                })
+                
+        }
     });
 
 
