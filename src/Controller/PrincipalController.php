@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Atelier;
 use App\Entity\Hotel;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PrincipalController extends AbstractController
@@ -22,25 +23,26 @@ class PrincipalController extends AbstractController
     }
 
     #[Route('/ateliers', name: 'ateliers')]
-    public function ateliers()
+    public function ateliers(ManagerRegistry $mr)
     {
-        $ateliersData = $this->getDoctrine()->getRepository(Atelier::class)->findAll();
+        $ateliersData = $mr->getRepository(Atelier::class)->findAll();
+        $formulesData = $mr->getRepository(Hotel::class)->findAll();
         return $this->render('ateliers.html.twig', [
             'ateliersData'=>$ateliersData,
+            'formulesData'=>$formulesData,
         ]);
     }
     #[Route('/ajaxShowPartialAtelierVacations', name: 'ajaxShowPartialAtelierVacations')]
     public function ajaxShowPartialAtelierVacations()
     {
         
-        return $this->render('/_partials/_partialAtelierVacation.html.twig', [
-        ]);
+        return $this->redirectToRoute('formules');
     }
     
     #[Route('/formules', name: 'formules')]
-    public function formules()
+    public function formules(ManagerRegistry $mr)
     {
-        $formulesData = $this->getDoctrine()->getRepository(Hotel::class)->findAll();
+        $formulesData = $mr->getRepository(Hotel::class)->findAll();
         return $this->render('formules.html.twig', [
             'formulesData'=>$formulesData,
         ]);

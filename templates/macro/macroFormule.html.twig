@@ -1,0 +1,59 @@
+{% macro macroFormule(formulesData)%}
+<style>
+.gridFormules{display:grid;
+    grid-template-rows :repeat(3,1fr);
+    grid-template-columns :repeat(2,1fr);
+    margin: 3%;
+    gap:30px;
+}
+.gridFormules div {
+
+}
+.noSelected{
+    border: 1px solid gray;
+    padding: 5%;
+}
+
+.tarif{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.titleFormule{
+    text-align: center;
+}
+.subtitleFormule{
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
+
+</style>
+
+    <div class="gridFormules">    
+        {% for formule in formulesData %}
+            <div class="noSelected">
+                <div class="titleFormule">{{formule.nom}}</div>
+                <div class="subtitleFormule">Informations :
+                    <div>Adresse: {{formule.adresse1}}
+                    </div>
+                    {% if formule.adresse2 != null %}
+                    <div>Complément d'adresse : {{formule.adresse2}}</div>
+                    {% endif %}
+                    <div>Code postal : {{formule.cp}}</div>
+                    <div>Ville : {{formule.ville}}</div>
+                    <div>Numéro de téléphone : {{formule.tel}}</div>
+                    <div>Email : {{formule.mail}}</div>
+                </div>
+                <div class="subtitleFormule">Tarifs : 
+                {% for tarif in formule.tarifs %}
+                    <div class="tarif"> 
+                        <div>{{tarif.categorie.libelleCategorie}} + petit déjeuner </div>
+                        <div>{{tarif.tarifNuite}} €/nuit</div> 
+                    </div>
+                {% endfor %}
+                </div>
+                <button class="btn btn-dark" type="button">Reserver</button>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

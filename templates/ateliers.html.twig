@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "macro/macroFormule.html.twig" as macroFormule %}
 
 {% block body %}
 <style>
@@ -9,13 +10,14 @@
 }
 .selectedAtelier .card-header{background-color: #b8d8be;}
 .selectedAtelier .card-body{background-color: #d2e7d6;}
-
+.dateReservation{}
+.input-group-prepend{width: 130px;min-width: 130px;}
 </style>
 
-
+<input id="inputAtelier" name="idAtelier" value="" hidden />
 <div class="gridAteliers">
     {% for atelier in ateliersData %}
-        <div class="card text-dark mb-3" idAtelier='{{atelier.id}}' style="max-width: 18rem;">
+        <div class="card text-dark mb-3"  idAtelierSelected="{{atelier.id}}"style="max-width: 18rem;">
             <div class="card-header">{{atelier.libelle}} </div>
             <div class="card-body">
                 <h5 class="card-title"></h5>
@@ -29,32 +31,35 @@
     {% endfor %}
 </div>
 
-<div class='showPartial'>
+<input name="idFormule" value="" hidden />
+<div class='divFormule'>
+    {{ macroFormule.macroFormule(formulesData) }}
+</div>
 
-
+<div name="datesCongres" style="padding-left: 10%;display: block ruby;padding-right: 14%;">
+    <div class="input-group mb-3" style="width: 50%;">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="labelDate1">Date de début</span>
+        </div>
+        <input class="form-control" type="date" name="dateReservation" min="2013-09-14" max="2013-09-15"/>
+    </div>
+    <div class="input-group mb-3" style="width: 50%;">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="labelDate2">Date de fin</span>
+        </div>
+        <input class="form-control" type="date" name="dateReservation"  min="2013-09-14" max="2013-09-15"/>
+    </div>
 </div>
 
 
-
-<script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+ <script>
     $('.card').click(function(){
         $('.card').removeClass('selectedAtelier');
-        $(this).addClass('selectedAtelier');
-        idAtelier = $(this).attr('idAtelier');
-        $.ajax([
-            type: 'POST',  
-            path : 'ajaxShowPartialAtelierVacations'
-            data: { 'idAtelier': idAtelier },  
-            success: function (result) {
-                $('.showPartial').html(result);
-            },
-        ])
+        $(this).addClass('selectedAtelier');   
+        $('#inputAtelier').val($(this).attr('idAtelierSelected'));
+        console.log($('#inputAtelier').val());
     });
-
-
-
-
-
 </script>
 
 
