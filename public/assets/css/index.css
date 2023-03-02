@@ -12,8 +12,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-  /*  bottom:0;
-    position: absolute;*/
+    bottom:0;
+    position: absolute;
     width: 100%;
     min-height: 50px;
     padding-right: 5px;
@@ -29,16 +29,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .right{
     text-align: right;
 }
-img{
-    max-height: 100px;
-    max-width: 100px;
-}
+
 .footer_img{
      border-radius: 5px;
 }
 .header_img{
     margin: 10px;
     border-radius: 5px;
+      max-height: 100px;
+    max-width: 100px;
 }
 
 
@@ -64,5 +63,3 @@ img{
     justify-content: space-around;
     padding-top: 10%;
 }
-
-
