@@ -12,9 +12,35 @@
 .selectedAtelier .card-body{background-color: #d2e7d6;}
 .dateReservation{}
 .input-group-prepend{width: 130px;min-width: 130px;}
+
+.title{
+    text-align: center;
+    padding-bottom: 5%;
+    padding-top: 5%
+}
+.boxtitle{
+    padding-left: 10%
+}
+.boxtitle span{
+    color: darkgreen;
+}
+.input-group.mb-3{
+    padding-left: 10%;
+}
+.input-group.mb-3:nth-child(2) {
+    padding-top: 2%;
+}
+.btnSubmitFormReserverAterlier{
+    margin-left: 10%;
+}
 </style>
 <input id="inputAtelier" name="idAtelier" value="" hidden />
-<h2>Etape 1</h2>
+<h1 class="title">Inscription aux ateliers</h1>
+<div class="boxtitle">
+    <h2 class="steps">Etape 1</h2>
+    <span>Veuillez choisir un ou plusieurs ateliers</span>
+</div>
+
 
 <div class="gridAteliers">
     {% for atelier in ateliersData %}
