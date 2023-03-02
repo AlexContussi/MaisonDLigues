@@ -26,10 +26,14 @@ class Inscription
     #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Nuite::class)]
     private Collection $nuites;
 
+    #[ORM\ManyToMany(targetEntity: Atelier::class, inversedBy: 'inscriptions')]
+    private Collection $ateliers;
+
     public function __construct()
     {
         $this->restaurations = new ArrayCollection();
         $this->nuites = new ArrayCollection();
+        $this->ateliers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +109,30 @@ class Inscription
                 $nuite->setInscription(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Atelier>
+     */
+    public function getAteliers(): Collection
+    {
+        return $this->ateliers;
+    }
+
+    public function addAtelier(Atelier $atelier): self
+    {
+        if (!$this->ateliers->contains($atelier)) {
+            $this->ateliers->add($atelier);
+        }
+
+        return $this;
+    }
+
+    public function removeAtelier(Atelier $atelier): self
+    {
+        $this->ateliers->removeElement($atelier);
 
         return $this;
     }

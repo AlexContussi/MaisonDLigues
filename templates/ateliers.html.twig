@@ -63,6 +63,7 @@
 <div class='divFormule'>
     <h2>Etape 2 </h2>
     <h4>Ajouter une Nuite</h4>
+    <div>Recap des réservations : <span class="recapReservation"></span></div>
     <div class="divMacro">
         <select class="form-control selectFormule">
             {% for formule in formulesData %}
@@ -71,8 +72,9 @@
         </select>
         <div id="informationTarifsHotel"></div>
     </div>
-    <button class="btn btn-primary btnAddMacro"><i class="fas fa-plus"></i></button>
 </div>
+
+<button id="btnValiderReservation" class="btn btn-primary">Valider la réservation</button>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
  <script>
@@ -122,6 +124,23 @@
             }
         })
     })
+
+    $('#btnValiderReservation').click(function(){
+        if(confirm('Vous allez valider la réservation')) {
+            $.ajax({
+                method: "POST",
+                url: "ajaxValiderReservation",
+                data: {
+                    'idsAteliers' :tabIdAteliers,
+                    'tabNuites':tabNuites
+                },
+                success: function (result) {
+                    $('.divMacro').append(result);
+                }
+            })
+        }
+    })
+
 
 
 

@@ -60,6 +60,21 @@ class PrincipalController extends AbstractController
             'hotelData'=>$hotelData,
         ]);
     }
+
+    #[Route('/ajaxValiderReservation', name: 'ajaxValiderReservation')]
+    public function ajaxValiderReservation(EntityManagerInterface $em ,Request $request)
+    {
+        $idsAteliers = $request->request->get('idsAteliers');
+        $tabNuites = $request->request->get('tabNuites');
+
+        dump($tabNuites);
+
+
+        return $this->render('test.html.twig', [
+            'tabNuites'=>$tabNuites,
+            'idsAteliers'=>$idsAteliers,
+        ]);
+    }
     
 
 }

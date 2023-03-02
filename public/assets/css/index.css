@@ -42,12 +42,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 /*Dashboard*/
-.container{
 
-}
-.dates_congres{
-    
-}
 .ateliers{
     display: flex;
     flex-direction: row;
