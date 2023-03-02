@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-{% import "macro/macroFormule.html.twig" as macroFormule %}
 
 {% block body %}
 <style>
@@ -7,9 +6,11 @@
     display:grid;
     grid-template-columns: repeat(3,1fr);
     padding: 2% 10%;
+    
 }
 .selectedAtelier .card-header{background-color: #b8d8be;}
 .selectedAtelier .card-body{background-color: #d2e7d6;}
+.selectedAtelier {box-shadow: 10px 5px 5px gray;}
 .dateReservation{}
 .input-group-prepend{width: 130px;min-width: 130px;}
 
@@ -62,40 +63,42 @@
 <div class='divFormule'>
     <h2>Etape 2 </h2>
     <h4>Ajouter une Nuite</h4>
-    <div class="divMacro">{{ macroFormule.macroFormule(formulesData) }}</div>
+    <div class="divMacro">
+        <select class="form-control selectFormule">
+            {% for formule in formulesData %}
+                <option value={{formule.id}}>{{formule.nom}}</option>
+            {% endfor %}
+        </select>
+        <div id="informationTarifsHotel"></div>
+    </div>
     <button class="btn btn-primary btnAddMacro"><i class="fas fa-plus"></i></button>
 </div>
-
-
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
  <script>
     $('.divFormule').hide();
     const tabIdAteliers =[];
+    const tabNuites =[];
     $('.card').click(function(){
         if($(this).hasClass('selectedAtelier')){
-            tabIdAteliers.splice
+            tabIdAteliers.splice($.inArray($(this).attr('idAtelierSelected'), tabIdAteliers), 1 );
+            $(this).removeClass('selectedAtelier');
+        }else{
+            if(tabIdAteliers.length >= 5 ){
+                alert('Vous ne pouvez choisir que 5 ateliers maximum');
+            }else{
+                tabIdAteliers.push($(this).attr('idAtelierSelected'));
+                $(this).addClass('selectedAtelier');
+            }
         }
-        $(this).addClass('selectedAtelier');   
-        $('#inputAtelier').val($(this).attr('idAtelierSelected'));
-        console.log($('#inputAtelier').val());
+        console.log(tabIdAteliers);
         $('.divFormule').show();
     });
 
+    $('.selectedAtelier').click(function(){
+        $(this).removeClass('selectedAtelier');
+    })
 
-
-    $('.btnSubmitFormReserverAterlier').click(function(){
-        if(confirm('Valider la réservation ?')) {
-            $.ajax({
-                method: "POST",
-                url: "some.php",
-                data: { name: "John", location: "Boston" },
-                success: function (result) {
-                    console.log(result);
-                }
-            })
-        }
-    });
 
     $('.btnAddMacro').click(function(){
         if(confirm('Ajouter une nouvelle nuite ?')) {
@@ -109,6 +112,16 @@
         }
     });
 
+    $('.selectFormule').change(function(){
+        $.ajax({
+            method: "POST",
+            url: "ajaxShowPartialTarifsFormule",
+            data :{'idhotel' : $(this).val()},
+            success: function (result) {
+                $('#informationTarifsHotel').html(result);
+            }
+        })
+    })
 
 
 

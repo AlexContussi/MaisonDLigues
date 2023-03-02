@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Atelier;
 use App\Entity\Hotel;
+use App\Entity\Proposer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -40,14 +41,6 @@ class PrincipalController extends AbstractController
         ]);
     }
 
-    #[Route('/ajaxAddFormule', name: 'ajaxAddFormule')]
-    public function ajaxAddFormule(ManagerRegistry $mr)
-    { 
-        $formulesData = $mr->getRepository(Hotel::class)->findAll();
-        return $this->render('partial/_partialMacroFormules.html.twig', [
-            'formulesData'=>$formulesData,
-        ]);
-    }
     
     #[Route('/formules', name: 'formules')]
     public function formules(ManagerRegistry $mr)
@@ -55,6 +48,16 @@ class PrincipalController extends AbstractController
         $formulesData = $mr->getRepository(Hotel::class)->findAll();
         return $this->render('formules.html.twig', [
             'formulesData'=>$formulesData,
+        ]);
+    }
+
+    #[Route('/ajaxShowPartialTarifsFormule', name: 'ajaxShowPartialTarifsFormule')]
+    public function ajaxShowPartialTarifsFormule(EntityManagerInterface $em ,Request $request)
+    {
+        $idhotel = $request->request->get('idhotel');
+        $hotelData = $em->getRepository(Hotel::class)->findById($idhotel);
+        return $this->render('partial/_partialTarifsFormule.html.twig', [
+            'hotelData'=>$hotelData,
         ]);
     }
     
