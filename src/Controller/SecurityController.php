@@ -6,6 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Licencie;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints\Json;
+// use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class SecurityController extends AbstractController
 {
@@ -29,11 +35,27 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-    #[Route(path: '/inscription', name: 'app_register')]
-    public function register(): Response
-    {
-        return $this->render('security/register.html.twig', [
-            'controller_name' => 'SecurityController',
-        ]);
-    }
+    // #[Route(path: '/inscription', name: 'app_register_2')]
+    // public function app_register_2(): Response
+    // {
+    //     return $this->render('security/registerEtape1.html.twig', [
+    //         'controller_name' => 'SecurityController',
+    //     ]);
+    
+    // }
+
+    // #[Route(path: '/verifierNumLicence', name: 'verifierNumLicence')]
+    // public function verifierNumLicence(Request $request,EntityManagerInterface $em,): Response
+    // {
+    //     $numLicence = $request->request->get('numlicence');
+    //     $licenceData = $em->getRepository(Licencie::class)->findOneByNumlicence($numLicence);
+    //     if($licenceData != null){
+    //         return $this->render('security/registerEtape2.html.twig', [
+    //             'controller_name' => 'SecurityController',
+    //             'licenceData' => $licenceData,
+    //         ]);
+    //     }else{
+    //         return new JsonResponse('erreur');
+    //     }    
+    // }
 }

@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\CompteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Table(name: 'compte')]
 #[ORM\Entity(repositoryClass: CompteRepository::class)]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class Compte implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,7 +21,7 @@ class Compte implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name:'email',length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(name: 'numlicence')]
+    #[ORM\Column(name: 'numlicence',length: 12)]
     private ?int $numlicence = null;
 
     #[ORM\Column(name:'password',length: 255)]
@@ -33,6 +35,9 @@ class Compte implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
@@ -151,6 +156,18 @@ class Compte implements UserInterface, PasswordAuthenticatedUserInterface
     public function setInscription(?Inscription $inscription): self
     {
         $this->inscription = $inscription;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

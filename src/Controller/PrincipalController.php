@@ -69,20 +69,30 @@ class PrincipalController extends AbstractController
         $idsAteliers = json_decode($request->request->get('idsAteliers'));
         $tabNuites = json_decode($request->request->get('tabNuites'));
         $proposerData = $em->getRepository(Proposer::class)->findAll();
+        // $atelierData = $em->getRepository(Atelier::class)->findAll();
         $proposer=[];
+        // $ateliers=[];
         foreach($proposerData as $pd){
             $proposer[$pd->getId()]=$pd;
         }
+        // foreach($atelierData as $ad){
+        //     $ateliers[$ad->getId()]=$ad;
+        // }
         foreach($tabNuites as $nuite){
             $newNuite = new Nuite;
             $newNuite->setDateStart(new DateTime($nuite->date1));
             $newNuite->setDateEnd(new DateTime($nuite->date2));
             $newNuite->setHotel($proposer[$nuite->idPropodition]->getHotel());
             $newNuite->setCategorie($proposer[$nuite->idPropodition]->getCategorie());
+            // a faire -> ajouter inscription du user quand les comptes seront actifs
+                // $newNuite->setInscription($this->getUser()->getInscription());
             $em->persist($newNuite);
         }
         $em->flush();
-
+        
+        // foreach($idsAteliers as $atelier){
+            // $ateliers[$atelier]->addInscription($this->getUser()->getInscription());
+        // }
         // return $this->redirectToRoute('app_principal');
 
         return $this->render('test.html.twig', [
