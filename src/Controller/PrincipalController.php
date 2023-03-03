@@ -10,8 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Atelier;
 use App\Entity\Hotel;
 use App\Entity\Proposer;
+use App\Entity\Nuite;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use DateTime;
 
 class PrincipalController extends AbstractController
 {
@@ -64,15 +66,29 @@ class PrincipalController extends AbstractController
     #[Route('/ajaxValiderReservation', name: 'ajaxValiderReservation')]
     public function ajaxValiderReservation(EntityManagerInterface $em ,Request $request)
     {
-        $idsAteliers = $request->request->get('idsAteliers');
-        $tabNuites = $request->request->get('tabNuites');
+        $idsAteliers = json_decode($request->request->get('idsAteliers'));
+        $tabNuites = json_decode($request->request->get('tabNuites'));
+        $proposerData = $em->getRepository(Proposer::class)->findAll();
+        $proposer=[];
+        foreach($proposerData as $pd){
+            $proposer[$pd->getId()]=$pd;
+        }
+        foreach($tabNuites as $nuite){
+            $newNuite = new Nuite;
+            $newNuite->setDateStart(new DateTime($nuite->date1));
+            $newNuite->setDateEnd(new DateTime($nuite->date2));
+            $newNuite->setHotel($proposer[$nuite->idPropodition]->getHotel());
+            $newNuite->setCategorie($proposer[$nuite->idPropodition]->getCategorie());
+            $em->persist($newNuite);
+        }
+        $em->flush();
 
-        dump($tabNuites);
-
+        // return $this->redirectToRoute('app_principal');
 
         return $this->render('test.html.twig', [
             'tabNuites'=>$tabNuites,
             'idsAteliers'=>$idsAteliers,
+            'user'=>$this->getUser(),
         ]);
     }
     

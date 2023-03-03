@@ -29,6 +29,9 @@ class Inscription
     #[ORM\ManyToMany(targetEntity: Atelier::class, inversedBy: 'inscriptions')]
     private Collection $ateliers;
 
+    #[ORM\OneToOne(inversedBy: 'inscription', cascade: ['persist', 'remove'])]
+    private ?Compte $compte = null;
+
     public function __construct()
     {
         $this->restaurations = new ArrayCollection();
@@ -136,4 +139,27 @@ class Inscription
 
         return $this;
     }
+
+    public function getCompte(): ?Compte
+    {
+        return $this->compte;
+    }
+
+    public function setCompte(?Compte $compte): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($compte === null && $this->compte !== null) {
+            $this->compte->setInscription(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($compte !== null && $compte->getInscription() !== $this) {
+            $compte->setInscription($this);
+        }
+
+        $this->compte = $compte;
+
+        return $this;
+    }
+
 }

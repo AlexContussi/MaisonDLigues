@@ -131,8 +131,8 @@
                 method: "POST",
                 url: "ajaxValiderReservation",
                 data: {
-                    'idsAteliers' :tabIdAteliers,
-                    'tabNuites':tabNuites
+                    'idsAteliers' :jQuery.parseJSON(tabIdAteliers),
+                    'tabNuites': JSON.stringify(tabNuites),
                 },
                 success: function (result) {
                     $('.divMacro').append(result);

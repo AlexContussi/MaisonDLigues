@@ -32,24 +32,16 @@
 
 $('#btnAddTarif').click(function(){
     if(confirm('Ajouter cette nuitée ?')) {
-        console.log($('input[name="radioTarif"]:checked').attr('idTarif'));
         $('.recapReservation').append('id proposition -> '+$('input[name="radioTarif"]:checked').attr('idTarif'));
         let idproposition=$('input[name="radioTarif"]:checked').attr('idTarif');
         let date1=$('input[name="dateReservation1"]').val();
         let date2=$('input[name="dateReservation2"]').val();
         if(date1 != "" && date2 != "" && idproposition != ""){
-            tabNuites.push({'idPropodition':idproposition,'date1':date1,'date2':date2});
-            console.log(tabNuites);
-
+            tabNuites.push({"idPropodition":idproposition,"date1":date1,"date2":date2});
         }else{
             alert('Veuillez compléter tout les champs');
         }
-
     }
 })
-
-
-
-
 
 </script>
