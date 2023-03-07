@@ -33,13 +33,11 @@
             <form>
               <div class="form-outline mb-4">
                   {{ form_row(registrationForm.numlicence, {'value' : licenceData.numlicence }) }}
-
                   {# <input value="{{licenceData.numlicence}}" name="numLicence" disabled required /> #}
               </div>
               <div class="form-outline mb-4">
                   <div><label for="mail">Email</label></div>
                   {{ form_row(registrationForm.email, {'value' : licenceData.mail }) }}
-
                   {# <input value="{{licenceData.mail}}" name="email" disabled required/> #}
               </div>
               <div class="form-outline mb-4">

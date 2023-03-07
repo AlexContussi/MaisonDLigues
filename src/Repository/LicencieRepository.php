@@ -38,6 +38,8 @@ class LicencieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+
 
 //    /**
 //     * @return Licencie[] Returns an array of Licencie objects

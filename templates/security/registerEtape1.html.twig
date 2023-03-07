@@ -5,7 +5,8 @@
     <img class="header_img" src="assets/images/Mdl-removebg.png">
 {% endblock %}
 {% block body %}
-    
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
     <!-- Section: Design Block -->
 <section class="text-center text-lg-start">
   <style>
@@ -29,11 +30,11 @@
             ">
           <div class="card-body p-5 shadow-5 text-center">
             <h2 class="fw-bold mb-5">Inscription</h2>
-            <form method="get" action="{{path('verifierNumLicence')}}">
+            <form id="formVerifierNumLicence" method="post" action="{{path('verifierNumLicence')}}">
                 
               <div class="form-outline mb-4">
-                  <label for="inputEmail">Numéro de licence</label>
-                    <input type="text" value="" name="numlicence" id="numlicence" class="form-control" autocomplete="numéro de licence" required autofocus>
+                  <label for="numlicence">Numéro de licence</label>
+                    <input type="text" name="numlicence" id="numlicence" class="form-control" required autofocus>
               </div>
               <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
               <!-- Submit button -->
@@ -56,4 +57,21 @@
   </div>
   <!-- Jumbotron -->
 </section>
+
+
+<script>
+$('#formVerifierNumLicence').submit(function(e){
+ 
+
+})
+
+
+
+
+
+
+</script>
+
+
+
 {% endblock %}

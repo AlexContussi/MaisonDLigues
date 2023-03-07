@@ -29,20 +29,19 @@ class RegistrationController extends AbstractController
     {
         $this->emailVerifier = $emailVerifier;
     }
-    #[Route(path: '/register', name: 'register')]
+    #[Route(path: '/register', name: 'app_register')]
     public function register(): Response
     {
         return $this->render('security/registerEtape1.html.twig', [
-            'controller_name' => 'SecurityController',
         ]);
-    
     }
 
 
     #[Route('/verifierNumLicence', name: 'verifierNumLicence')]
-    public function verifierNumLicence(SessionInterface $session , Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
-    { 
+    public function verifierNumLicence(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    {
         $numLicence = $request->request->get('numlicence');
+        dump($numLicence);
         $licenceData = $entityManager->getRepository(Licencie::class)->findOneByNumlicence($numLicence);
         $user = new Compte();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -55,6 +54,7 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+            $user->setRoles([]);
             $entityManager->persist($user);
             $entityManager->flush();
             // generate a signed url and email it to the user
@@ -67,11 +67,7 @@ class RegistrationController extends AbstractController
             // );
             // do anything else you need here, like send an email
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/registerEtape2.html.twig', [

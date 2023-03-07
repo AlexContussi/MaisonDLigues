@@ -21,14 +21,14 @@ class Compte implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name:'email',length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(name: 'numlicence',length: 12)]
-    private ?int $numlicence = null;
+    #[ORM\Column(name:'numlicence',length: 12)]
+    private ?string $numlicence = null;
 
     #[ORM\Column(name:'password',length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(name:'roles',length: 255)]
-    private ?string $roles = null;
+    #[ORM\Column(name:'roles')]
+    private ?array $roles = [];
 
     #[ORM\OneToOne(mappedBy: 'compte', cascade: ['persist', 'remove'])]
     private ?Inscription $inscription = null;

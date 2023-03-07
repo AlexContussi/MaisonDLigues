@@ -24,13 +24,6 @@ class PrincipalController extends AbstractController
             'controller_name' => 'PrincipalController',
         ]);
     }
-       #[Route('/login', name: 'app_login')]
-    public function login(): Response
-    {
-        return $this->render('principal/login.html.twig', [
-            'controller_name' => 'PrincipalController',
-        ]);
-    }
 
     #[Route('/ateliers', name: 'ateliers')]
     public function ateliers(ManagerRegistry $mr)
