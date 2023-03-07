@@ -15,8 +15,11 @@ class Nuite
     #[ORM\Column(name:'id')]
     private ?int $id = null;
 
-    #[ORM\Column(name:'dateNuitee',type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateNuitee = null;
+    #[ORM\Column(name:'dateStart',type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateStart = null;
+
+    #[ORM\Column(name:'dateEnd',type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateEnd = null;
 
     #[ORM\ManyToOne(inversedBy: 'nuites')]
     #[ORM\JoinColumn(name:'hotel',nullable: false)]
@@ -34,14 +37,25 @@ class Nuite
         return $this->id;
     }
 
-    public function getDateNuitee(): ?\DateTimeInterface
+    public function getDateStart(): ?\DateTimeInterface
     {
-        return $this->dateNuitee;
+        return $this->dateStart;
     }
 
-    public function setDateNuitee(\DateTimeInterface $dateNuitee): self
+    public function setDateStart(\DateTimeInterface $dateStart): self
     {
-        $this->dateNuitee = $dateNuitee;
+        $this->dateStart = $dateStart;
+
+        return $this;
+    }
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(\DateTimeInterface $dateEnd): self
+    {
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }

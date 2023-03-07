@@ -26,10 +26,17 @@ class Inscription
     #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Nuite::class)]
     private Collection $nuites;
 
+    #[ORM\ManyToMany(targetEntity: Atelier::class, inversedBy: 'inscriptions')]
+    private Collection $ateliers;
+
+    #[ORM\OneToOne(inversedBy: 'inscription', cascade: ['persist', 'remove'])]
+    private ?Compte $compte = null;
+
     public function __construct()
     {
         $this->restaurations = new ArrayCollection();
         $this->nuites = new ArrayCollection();
+        $this->ateliers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,4 +115,51 @@ class Inscription
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Atelier>
+     */
+    public function getAteliers(): Collection
+    {
+        return $this->ateliers;
+    }
+
+    public function addAtelier(Atelier $atelier): self
+    {
+        if (!$this->ateliers->contains($atelier)) {
+            $this->ateliers->add($atelier);
+        }
+
+        return $this;
+    }
+
+    public function removeAtelier(Atelier $atelier): self
+    {
+        $this->ateliers->removeElement($atelier);
+
+        return $this;
+    }
+
+    public function getCompte(): ?Compte
+    {
+        return $this->compte;
+    }
+
+    public function setCompte(?Compte $compte): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($compte === null && $this->compte !== null) {
+            $this->compte->setInscription(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($compte !== null && $compte->getInscription() !== $this) {
+            $compte->setInscription($this);
+        }
+
+        $this->compte = $compte;
+
+        return $this;
+    }
+
 }

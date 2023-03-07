@@ -29,33 +29,43 @@
             ">
           <div class="card-body p-5 shadow-5 text-center">
             <h2 class="fw-bold mb-5">Inscription</h2>
-            <form method="post">
-                
+            {{ form_start(registrationForm) }}                
+            <form>
               <div class="form-outline mb-4">
-                  <label for="inputEmail">Numéro de licence</label>
-                    <input type="text" value="" name="numlicence" id="numlicence" class="form-control" autocomplete="numéro de licence" required autofocus>
+                  {{ form_row(registrationForm.numlicence, {'value' : licenceData.numlicence }) }}
+
+                  {# <input value="{{licenceData.numlicence}}" name="numLicence" disabled required /> #}
+              </div>
+              <div class="form-outline mb-4">
+                  <div><label for="mail">Email</label></div>
+                  {{ form_row(registrationForm.email, {'value' : licenceData.mail }) }}
+
+                  {# <input value="{{licenceData.mail}}" name="email" disabled required/> #}
+              </div>
+              <div class="form-outline mb-4">
+                  <label for="inputEmail">Nom d'utilisateur</label>
+                    {{ form_row(registrationForm.username) }}
               </div>
               <!-- Password input -->
               <div class="form-outline mb-4">
-                 <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                  <label for="inputPassword">Mot de passe</label>
+                  {{ form_row(registrationForm.password.first)}}
               </div>
               <div class="form-outline mb-4">
-                 <label for="inputPassword">Confirmation du mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                <label for="inputPassword">Confirmation du mot de passe</label>
+                {{ form_row(registrationForm.password.second)}}
               </div>
-
-
-                            <input type="hidden" name="_csrf_token"
-                         value="{{ csrf_token('authenticate') }}">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
               <!-- Submit button -->
               <button type="submit" class="btn btn-dark btn-block mb-4">
                 S'inscrire
               </button>
+              </endform>
+              {{ form_end(registrationForm) }}
+
              <div class="text-center">
                 <p><a href="{{path('app_login')}}">ou se connecter</a></p>
               </div>
-            </form>
           </div>
         </div>
       </div>

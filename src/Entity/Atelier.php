@@ -28,10 +28,14 @@ class Atelier
     #[ORM\OneToMany(mappedBy: 'atelier', targetEntity: Vacation::class)]
     private Collection $vacations;
 
+    #[ORM\ManyToMany(targetEntity: Inscription::class, mappedBy: 'ateliers')]
+    private Collection $inscriptions;
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
         $this->vacations = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +119,33 @@ class Atelier
             if ($vacation->getAtelier() === $this) {
                 $vacation->setAtelier(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->addAtelier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            $inscription->removeAtelier($this);
         }
 
         return $this;

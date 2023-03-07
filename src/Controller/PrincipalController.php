@@ -10,8 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Atelier;
 use App\Entity\Hotel;
 use App\Entity\Proposer;
+use App\Entity\Nuite;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use DateTime;
 
 class PrincipalController extends AbstractController
 {
@@ -58,6 +60,45 @@ class PrincipalController extends AbstractController
         $hotelData = $em->getRepository(Hotel::class)->findById($idhotel);
         return $this->render('partial/_partialTarifsFormule.html.twig', [
             'hotelData'=>$hotelData,
+        ]);
+    }
+
+    #[Route('/ajaxValiderReservation', name: 'ajaxValiderReservation')]
+    public function ajaxValiderReservation(EntityManagerInterface $em ,Request $request)
+    {
+        $idsAteliers = json_decode($request->request->get('idsAteliers'));
+        $tabNuites = json_decode($request->request->get('tabNuites'));
+        $proposerData = $em->getRepository(Proposer::class)->findAll();
+        // $atelierData = $em->getRepository(Atelier::class)->findAll();
+        $proposer=[];
+        // $ateliers=[];
+        foreach($proposerData as $pd){
+            $proposer[$pd->getId()]=$pd;
+        }
+        // foreach($atelierData as $ad){
+        //     $ateliers[$ad->getId()]=$ad;
+        // }
+        foreach($tabNuites as $nuite){
+            $newNuite = new Nuite;
+            $newNuite->setDateStart(new DateTime($nuite->date1));
+            $newNuite->setDateEnd(new DateTime($nuite->date2));
+            $newNuite->setHotel($proposer[$nuite->idPropodition]->getHotel());
+            $newNuite->setCategorie($proposer[$nuite->idPropodition]->getCategorie());
+            // a faire -> ajouter inscription du user quand les comptes seront actifs
+                // $newNuite->setInscription($this->getUser()->getInscription());
+            $em->persist($newNuite);
+        }
+        $em->flush();
+        
+        // foreach($idsAteliers as $atelier){
+            // $ateliers[$atelier]->addInscription($this->getUser()->getInscription());
+        // }
+        // return $this->redirectToRoute('app_principal');
+
+        return $this->render('test.html.twig', [
+            'tabNuites'=>$tabNuites,
+            'idsAteliers'=>$idsAteliers,
+            'user'=>$this->getUser(),
         ]);
     }
     
