@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Licencie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\Json;
+use SymfonyCasts\Bundle\VerifyEmail;
 // use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 

@@ -2,56 +2,92 @@
 {% block title %}Hello PrincipalController!{% endblock %}
 {% block body %}
     <body>
-        <h1>Dashboard</h1>
-        <div class="container">
-            <div class="dates_congres">
-                <div class="card">
-                    <div class="card-header">
-                        Featured
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="ateliers">
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="formules">
-
-                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Info card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Light card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Dark card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
+          <div class="box reveal fade-left">
+              <div class="leftside">
+                   <img src="https://cdn.create.vista.com/api/media/medium/374950062/stock-photo-fencer-fencing-mask-suit-holding?token=" 
+          alt="" />
+              </div>
+               <div class="rightside">
+                   <div class="rightside_title">Nos ateliers</div>
+                   <div>Pour avoir plus d'informations sur l'inscription à nos ateliers !</div>
+                   <button class="btn btn-dark rightside_button" type="button"><a href="{{path('ateliers')}}">En savoir +</a></button>
+                   
+              </div>
+          </div>
+          <div class="box reveal fade-right" id='switch'>
+              <div class="leftside">
+                   <img src="https://stillmed.olympics.com/media/Photos/2016/08/08/08-08-2016-Fencing-Women-Individual-Sabre-02.jpg" 
+          alt="" />
+              </div>
+               <div class="rightside">
+                   <div class="rightside_title">Les dates du congrès</div>
+                   <div>Pour avoir plus d'informations sur la réservation de nos ateliers</div>
+                   <button class="btn btn-dark rightside_button" type="button"><a href="">En savoir +</a></button>
+                   
+              </div>
+          </div>
+          <div class="box reveal fade-left">
+              <div class="leftside">
+                   <img src="https://images.pexels.com/photos/775219/pexels-photo-775219.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+          alt="" />
+              </div>
+               <div class="rightside">
+                   <div class="rightside_title">Nos formules d'hébergement</div>
+                   <div>Pour consulter nos différentes formules d'hébergements et bénéficier de prix réduit avec nos hôtels partenaires !</div>
+                   <button class="btn btn-dark rightside_button" type="button"><a href="{{path('formules')}}">En savoir +</a></button>
+                   
+              </div>
+          </div>
+          
+          
+ 
     </body>
+    
+    <style>
+        .box{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 5%;
+    align-items: center;
+        }
+      /*  .box:nth-child(2){
+            padding-top: 2%;
+        }*/
+        #switch{
+            flex-direction: row-reverse!important;
+            background: #33475c;
+            color: white;
+        }
+        #switch .rightside{
+            /*padding-left: 10%;*/
+        }
+        .leftside{
+            width: 50%;
+            margin: 2%
+        }
+        .leftside img{
+            width: 80%;
+            border-radius: 80%;
+           
+        }
+        .rightside{
+            width: 50%;
+            margin: 2%;
+            text-align: center;
+        }
+        .rightside div{
+                padding-bottom: 5%;
+        }
+        .rightside_title{
+            font-size: 3rem;
+            padding-bottom: 2%
+        }
+        .rightside_button{
+            
+        }
+        img.w-100.rounded-4.shadow-4 {
+    border-radius: 80%;
+}
+        </style>
 {% endblock %}
