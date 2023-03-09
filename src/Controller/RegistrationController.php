@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Compte;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,7 +37,7 @@ class RegistrationController extends AbstractController
 
 
     #[Route('/verifierNumLicence', name: 'verifierNumLicence')]
-    public function verifierNumLicence(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function verifierNumLicence(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator,  EntityManagerInterface $entityManager): Response
     {
         $numLicence = $request->request->get('numlicence');
         dump($numLicence);

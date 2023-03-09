@@ -4,11 +4,9 @@ namespace App\Controller;
 use App\Entity\Compte;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Security\LoginFormAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,7 +62,7 @@ class SecurityController extends AbstractController
 
 
     #[Route('/verifierNumLicence', name: 'verifierNumLicence')]
-    public function verifierNumLicence(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function verifierNumLicence(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $numLicence = $request->request->get('numlicence');
         dump($numLicence);
