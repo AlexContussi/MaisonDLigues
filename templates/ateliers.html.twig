@@ -1,152 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<style>
-.gridAteliers{
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
-    padding: 2% 10%;
-    
-}
-.selectedAtelier .card-header{background-color: #b8d8be;}
-.selectedAtelier .card-body{background-color: #d2e7d6;}
-.selectedAtelier {box-shadow: 10px 5px 5px gray;}
-.dateReservation{}
-.input-group-prepend{width: 130px;min-width: 130px;}
 
-.title{
-    text-align: center;
-    padding-bottom: 5%;
-    padding-top: 5%
-}
-.boxtitle{
-    padding-left: 10%
-}
-.boxtitle span{
-    color: darkgreen;
-}
-.input-group.mb-3{
-    padding-left: 10%;
-}
-.input-group.mb-3:nth-child(2) {
-    padding-top: 2%;
-}
-.btnSubmitFormReserverAterlier{
-    margin-left: 10%;
-}
-</style>
-<input id="inputAtelier" name="idAtelier" value="" hidden />
-<h1 class="title">Inscription aux ateliers</h1>
-<div class="boxtitle">
-    <h2 class="steps">Etape 1</h2>
-    <span>Veuillez choisir un ou plusieurs ateliers</span>
-</div>
-
-
-<div class="gridAteliers">
-    {% for atelier in ateliersData %}
-        <div class="card text-dark mb-3"  idAtelierSelected="{{atelier.id}}"style="max-width: 18rem;">
-            <div class="card-header">{{atelier.libelle}} </div>
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">
-                    {% for themes in atelier.themes %}
-                        - {{themes.libelle}}</br>
+{% for index,atelier in ateliersData %}
+    {% if index is even %}
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+    {% endif %}
+            <div class="bg-light me-md-3 pt-3 px-3 w-50 pt-md-5 px-md-5 text-center overflow-hidden" >
+                <div class="my-3 py-3">
+                    <h2 class="display-5">{{atelier.libelle}}</h2>
+                    <p class="lead">And an even wittier subheading.</p>
+                </div>
+                <div class="fiche bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:7%">
+                    {% for theme in atelier.themes %}
+                    <div class="text-light" >{{theme.libelle}}</div>
                     {% endfor %}
-                </p>
+                </div>
             </div>
+    {% if index is even %}
+    {% else %}
         </div>
-    {% endfor %}
-</div>
-
-<input name="idFormule" value="" hidden />
-<div class='divFormule'>
-    <h2>Etape 2 </h2>
-    <h4>Ajouter une Nuite</h4>
-    <div>Recap des réservations : <span class="recapReservation"></span></div>
-    <div class="divMacro">
-        <select class="form-control selectFormule">
-            {% for formule in formulesData %}
-                <option value={{formule.id}}>{{formule.nom}}</option>
-            {% endfor %}
-        </select>
-        <div id="informationTarifsHotel"></div>
-    </div>
-</div>
-
-<button id="btnValiderReservation" class="btn btn-primary">Valider la réservation</button>
-
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
- <script>
-    $('.divFormule').hide();
-    const tabIdAteliers =[];
-    const tabNuites =[];
-    $('.card').click(function(){
-        if($(this).hasClass('selectedAtelier')){
-            tabIdAteliers.splice($.inArray($(this).attr('idAtelierSelected'), tabIdAteliers), 1 );
-            $(this).removeClass('selectedAtelier');
-        }else{
-            if(tabIdAteliers.length >= 5 ){
-                alert('Vous ne pouvez choisir que 5 ateliers maximum');
-            }else{
-                tabIdAteliers.push($(this).attr('idAtelierSelected'));
-                $(this).addClass('selectedAtelier');
-            }
-        }
-        console.log(tabIdAteliers);
-        $('.divFormule').show();
-    });
-
-    $('.selectedAtelier').click(function(){
-        $(this).removeClass('selectedAtelier');
-    })
-
-
-    $('.btnAddMacro').click(function(){
-        if(confirm('Ajouter une nouvelle nuite ?')) {
-            $.ajax({
-                method: "POST",
-                url: "ajaxAddFormule",
-                success: function (result) {
-                    $('.divMacro').append(result);
-                }
-            })
-        }
-    });
-
-    $('.selectFormule').change(function(){
-        $.ajax({
-            method: "POST",
-            url: "ajaxShowPartialTarifsFormule",
-            data :{'idhotel' : $(this).val()},
-            success: function (result) {
-                $('#informationTarifsHotel').html(result);
-            }
-        })
-    })
-
-    $('#btnValiderReservation').click(function(){
-        if(confirm('Vous allez valider la réservation')) {
-            $.ajax({
-                method: "POST",
-                url: "ajaxValiderReservation",
-                data: {
-                    'idsAteliers' :JSON.stringify(tabIdAteliers),
-                    'tabNuites': JSON.stringify(tabNuites),
-                },
-                success: function (result) {
-                    $('.divMacro').append(result);
-                }
-            })
-        }
-    })
+    {% endif %}
+{% endfor %}
 
 
 
-
-</script>
-
-
+    
+    
 
 
 {% endblock %}

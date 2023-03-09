@@ -29,8 +29,17 @@ class PrincipalController extends AbstractController
     public function ateliers(ManagerRegistry $mr)
     {
         $ateliersData = $mr->getRepository(Atelier::class)->findAll();
-        $formulesData = $mr->getRepository(Hotel::class)->findAll();
         return $this->render('ateliers.html.twig', [
+            'ateliersData'=>$ateliersData,
+        ]);
+    }
+
+    #[Route('/reserverAteliers', name: 'reserverAteliers')]
+    public function reserverAteliers(ManagerRegistry $mr)
+    {
+        $ateliersData = $mr->getRepository(Atelier::class)->findAll();
+        $formulesData = $mr->getRepository(Hotel::class)->findAll();
+        return $this->render('reserverAteliers.html.twig', [
             'ateliersData'=>$ateliersData,
             'formulesData'=>$formulesData,
         ]);

@@ -22,8 +22,13 @@
         <li class="nav-item">
           <a class="nav-link" href={{path('formules')}}>Formules hébergement</a>
         </li>
+        {% if app.user %}
+          <li class="nav-item">
+            <a class="nav-link" href={{path('reserverAteliers')}}>Réserver des ateliers</a>
+          </li>
+        {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href={{path('app_login')}}>Se connecter</a>
+            <a class="nav-link" href={{(app.user)? path('app_logout') : path('app_login')}} >{{(app.user)? 'Se déconnecter' : 'Se connecter'}}</a>
         </li>
       </ul>
         {% block searchbar %}
