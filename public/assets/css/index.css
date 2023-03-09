@@ -58,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     justify-content: space-around;
     padding-top: 10%;
 }
-a{
+button.btn.btn-dark.rightside_button a{
     text-decoration: none!important;
-    color: white;
+    color: white!important;
 }
