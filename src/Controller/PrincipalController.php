@@ -11,6 +11,7 @@ use App\Entity\Atelier;
 use App\Entity\Hotel;
 use App\Entity\Proposer;
 use App\Entity\Nuite;
+use App\Entity\Inscription;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DateTime;
@@ -102,6 +103,21 @@ class PrincipalController extends AbstractController
             'idsAteliers'=>$idsAteliers,
             'user'=>$this->getUser(),
         ]);
+    }
+    
+    #[Route('/inscription', name: 'inscription')]
+    public function inscription(EntityManagerInterface $em){
+      if($em->getRepository(Inscription::class)->findOneByCompte($this->getUser())!= null){
+         new JsonResponse('Erreur');
+      }else{
+          $inscription = new Inscription();
+        $inscription->setCompte($this->getUser());
+        $inscription->setDateInscription(new DateTime());
+        $em->persist($inscription);
+        $em->flush();
+        new JsonResponse('Ok');
+      }
+        
     }
     
 
