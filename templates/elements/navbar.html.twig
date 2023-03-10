@@ -1,6 +1,6 @@
 
 {% block header %}
-
+{# {{dump(app.user)}} #}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"> 
       <div class="navbar_left">
@@ -12,17 +12,17 @@
     </button>
     <div class="nav_center" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item active">
+        <li class="nav-item {{( app.request.pathinfo == '/')? 'active': ''}}">
            <a class="nav-link" href={{path('app_principal')}}>Accueil</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{( app.request.pathinfo == '/ateliers')? 'active': ''}}">
           <a class="nav-link" href={{path('ateliers')}}>Ateliers</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{( app.request.pathinfo == '/formules')? 'active': ''}}">
           <a class="nav-link" href={{path('formules')}}>Formules hébergement</a>
         </li>
         {% if app.user %}
-          <li class="nav-item">
+          <li class="nav-item {{( app.request.pathinfo == '/reserverAteliers')? 'active': ''}}">
             <a class="nav-link" href={{path('reserverAteliers')}}>Réserver des ateliers</a>
           </li>
         {% endif %}

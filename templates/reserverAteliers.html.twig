@@ -2,26 +2,24 @@
 
 {% block body %}
 <style>
-.gridAteliers{
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
-    padding: 2% 10%;
-    
-}
-.selectedAtelier .card-header{background-color: #b8d8be;}
-.selectedAtelier .card-body{background-color: #d2e7d6;}
-.selectedAtelier {box-shadow: 10px 5px 5px gray;}
-.dateReservation{}
-.input-group-prepend{width: 130px;min-width: 130px;}
-
-.title{
+.reservation{
     text-align: center;
     padding-bottom: 5%;
     padding-top: 5%
 }
-.boxtitle{
-    padding-left: 10%
+
+.gridAteliers{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 2% 2%;
+    row-gap: 2%; 
+    column-gap: 2%; 
+    margin-bottom:2%
+    
 }
+.selectedAtelier {box-shadow: 10px 5px 5px gray;}
+.dateReservation{}
+
 .boxtitle span{
     color: darkgreen;
 }
@@ -34,50 +32,70 @@
 .btnSubmitFormReserverAterlier{
     margin-left: 10%;
 }
+.display-5{height:115px!important}
+.divMacro{padding: 2% 20%;}
+#informationTarifsHotel input{
+  margin-left: 10px;
+  margin-right: 5px;
+
+
+}
 </style>
-<input id="inputAtelier" name="idAtelier" value="" hidden />
-<h1 class="title">Inscription aux ateliers</h1>
-<div class="boxtitle">
-    <h2 class="steps">Etape 1</h2>
-    <span>Veuillez choisir un ou plusieurs ateliers</span>
-</div>
-
-
-<div class="gridAteliers">
-    {% for atelier in ateliersData %}
-        <div class="card text-dark mb-3"  idAtelierSelected="{{atelier.id}}"style="max-width: 18rem;">
-            <div class="card-header">{{atelier.libelle}} </div>
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">
-                    {% for themes in atelier.themes %}
-                        - {{themes.libelle}}</br>
-                    {% endfor %}
-                </p>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-
-<input name="idFormule" value="" hidden />
-<div class='divFormule'>
-    <h2>Etape 2 </h2>
-    <h4>Ajouter une Nuite</h4>
-    <div>Recap des réservations : <span class="recapReservation"></span></div>
-    <div class="divMacro">
-        <select class="form-control selectFormule">
-            {% for formule in formulesData %}
-                <option value={{formule.id}}>{{formule.nom}}</option>
-            {% endfor %}
-        </select>
-        <div id="informationTarifsHotel"></div>
+<div class="reservation">
+    <input id="inputAtelier" name="idAtelier" value="" hidden />
+    <h1 class="title">Inscription aux ateliers</h1>
+    <div class="boxtitle">
+        <h2 class="steps">Etape 1</h2>
+        <span>Veuillez choisir un ou plusieurs ateliers</span>
     </div>
+
+    <div class="gridAteliers">
+        {% for index,atelier in ateliersData %}
+            <div class="card bg-light me-md-3 pt-3 px-3 w-100 pt-md-5 px-md-5 text-center overflow-hidden" idAtelierSelected="{{atelier.id}}" >
+                <div class="my-3 py-3"><h4 class="display-5">{{atelier.libelle}}</h4></div>
+                <div class="fiche bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:2%">
+                    {% for theme in atelier.themes %}
+                    <div class="text-light" >{{theme.libelle}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {# 
+        {% for atelier in ateliersData %}
+            <div class="bg-light me-md-3 pt-3 px-3 w-50 pt-md-5 px-md-5 text-center overflow-hidden"  idAtelierSelected="{{atelier.id}}" style="max-width: 18rem;">
+                <div class="card-header">{{atelier.libelle}} </div>
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">
+                        {% for themes in atelier.themes %}
+                            - {{themes.libelle}}</br>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %} #}
+    </div>
+
+    <input name="idFormule" value="" hidden />
+    <div class='divFormule'>
+        <h1>Ajouter une Nuite</h4>
+        <h2>Etape 2 </h2>
+        <div>Recap des réservations : <span class="recapReservation"></span></div>
+        <div class="divMacro">
+            <select class="form-control selectFormule">
+                {% for formule in formulesData %}
+                    <option value={{formule.id}}>{{formule.nom}}</option>
+                {% endfor %}
+            </select>
+            <div id="informationTarifsHotel"></div>
+        </div>
+    </div>
+
+    <button id="btnValiderReservation" class="btn btn-primary">Valider la réservation</button>
 </div>
-
-<button id="btnValiderReservation" class="btn btn-primary">Valider la réservation</button>
-
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
  <script>
+    $('#btnValiderReservation').hide();
     $('.divFormule').hide();
     const tabIdAteliers =[];
     const tabNuites =[];
