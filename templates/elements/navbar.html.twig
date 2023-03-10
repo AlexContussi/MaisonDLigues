@@ -2,14 +2,15 @@
 {% block header %}
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container">
-      <img class="header_img" src="assets/images/Mdl-removebg.png">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"> 
+      <div class="navbar_left">
+      <img class="navbar-brand header_img" src="assets/images/Mdl-removebg.png">
       <a class="navbar-brand" href="#">Maison des ligues</a>
+      </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+    <div class="nav_center" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item active">
            <a class="nav-link" href={{path('app_principal')}}>Accueil</a>
@@ -25,15 +26,18 @@
             <a class="nav-link" href={{path('reserverAteliers')}}>Réserver des ateliers</a>
           </li>
         {% endif %}
-        <li class="nav-item">
+      </ul>
+    </div>
+        <div class="nav_right" id="navbarResponsive" >
+      <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
             <a class="nav-link" href={{(app.user)? path('app_logout') : path('app_login')}} >{{(app.user)? 'Se déconnecter' : 'Se connecter'}}</a>
         </li>
       </ul>
-    </div>
-  </div>
+        </div>
 </nav>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top:104px;">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top:55px;">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -86,6 +90,31 @@
 }
 img.d-block.w-100 {
     filter: brightness(0.5);
+}
+.fixed-top{
+    height: 55px!important;
+}
+/*
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}*/
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(40px, 55px);
+}
+.navbar_left {
+    display: flex;
+    align-items: center;
+}
+.nav_right{
+    display: contents;
+}
+ul.navbar-nav.ms-auto {
+    display: flex;
+    justify-content: center;
 }
      </style>
 {% endblock %}
