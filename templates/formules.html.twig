@@ -1,12 +1,68 @@
-{# empty Twig template #}
-{% import "macro/macroFormule.html.twig" as macroFormule %}
-
 {% extends 'base.html.twig' %}
 {% block body %}
+{# {{dump(formulesData)}} #}
+<style>
+    .display-5{height:115px!important}
+</style>
+{# {{dump(formulesData)}} #}
+{% set cpt = 0 %}
+{% for formule in formulesData %}
+    {% if cpt == 0 %}
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+            <div class="bg-light me-md-3 pt-3 px-3 w-50 pt-md-5 px-md-5 text-center overflow-hidden" >
+                <div class="my-3 py-3">
+                    <h2 class="display-5">{{formule.nom}}</h2>
+                    <p class="lead">{{formule.adresse1}} {{formule.cp}} {{formule.ville}}</p>
+                </div>
+                <div class="fiche text-light bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:7%">
+                    {% for tarif in formule.tarifs %}
+                        <div>Chambre {{tarif.categorie.libelleCategorie}} : {{tarif.tarifNuite}} €  </div>
+                    {% endfor %}
+                </div>
+            </div>
+    {% else %}
+        <div class="bg-light me-md-3 pt-3 px-3 w-50 pt-md-5 px-md-5 text-center overflow-hidden" >
+            <div class="my-3 py-3">
+                <h2 class="display-5">{{formule.nom}}</h2>
+                <p class="lead">{{formule.adresse1}} {{formule.cp}} {{formule.ville}}</p>
+            </div>
+            <div class="fiche text-light bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:7%">
+                {% for tarif in formule.tarifs %}
+                    <div>Chambre {{tarif.categorie.libelleCategorie}} : {{tarif.tarifNuite}} €  </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% set cpt = cpt + 1 %}
+    {% if cpt == 2 %}
+        {% set cpt = 0 %}
+        </div>
+    {% endif %}
+{% endfor %}
 
 
 
-{{ macroFormule.macroFormule(formulesData) }}
+{# {% for index,atelier in ateliersData %}
+    {% if index is even %}
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+    {% endif %}
+            <div class="bg-light me-md-3 pt-3 px-3 w-50 pt-md-5 px-md-5 text-center overflow-hidden" >
+                <div class="my-3 py-3">
+                    <h2 class="display-5">{{atelier.libelle}}</h2>
+                    <p class="lead">And an even wittier subheading.</p>
+                </div>
+                <div class="fiche bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:7%">
+                    {% for theme in atelier.themes %}
+                    <div class="text-light" >{{theme.libelle}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+    {% if index is even %}
+    {% else %}
+        </div>
+    {% endif %}
+{% endfor %} #}
+
 
 
 
