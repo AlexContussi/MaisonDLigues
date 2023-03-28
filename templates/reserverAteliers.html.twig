@@ -32,11 +32,17 @@
 .btnSubmitFormReserverAterlier{
     margin-left: 10%;
 }
-.display-5{height:115px!important}
-.divMacro{padding: 2% 20%;}
-#informationTarifsHotel input{
-  margin-left: 10px;
-  margin-right: 5px;
+</style>
+<div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <strong>Vous n'êtes pas inscrit(e) ?</strong><a href="" id="inscrire" name="inscrire"> Cliquez ici pour vous inscrire.<a/>
+
+</div>
+<input id="inputAtelier" name="idAtelier" value="" hidden />
+<h1 class="title">Inscription aux ateliers</h1>
+<div class="boxtitle">
+    <h2 class="steps">Etape 1</h2>
+    <span>Veuillez choisir un ou plusieurs ateliers</span>
+</div>
 
 
 }
@@ -117,7 +123,7 @@
 
     $('.selectedAtelier').click(function(){
         $(this).removeClass('selectedAtelier');
-    })
+    });
 
 
     $('.btnAddMacro').click(function(){
@@ -128,7 +134,7 @@
                 success: function (result) {
                     $('.divMacro').append(result);
                 }
-            })
+            });
         }
     });
 
@@ -140,8 +146,8 @@
             success: function (result) {
                 $('#informationTarifsHotel').html(result);
             }
-        })
-    })
+        });
+    });
 
     $('#btnValiderReservation').click(function(){
         if(confirm('Vous allez valider la réservation')) {
@@ -155,9 +161,24 @@
                 success: function (result) {
                     $('.divMacro').append(result);
                 }
-            })
+            });
         }
-    })
+    });
+    
+    $('#inscrire').click(function(){
+        if(confirm('Etes-vous sur de valider votre inscription')) {
+            $.ajax({
+                method: "POST",
+                url: "inscription",
+                  data: {
+                    'idUser': 
+                },
+                success: function(results) { 
+                    alert(results);
+                }
+            });
+        }
+    });
 
 
 
