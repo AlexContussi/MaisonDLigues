@@ -65,7 +65,6 @@ class SecurityController extends AbstractController
     public function verifierNumLicence(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $numLicence = $request->request->get('numlicence');
-        dump($numLicence);
         $licenceData = $entityManager->getRepository(Licencie::class)->findOneByNumlicence($numLicence);
         $user = new Compte();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -82,13 +81,13 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // generate a signed url and email it to the user
-            // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-            //     (new TemplatedEmail())
-            //         ->from(new Address('contact@maison-des-ligues.com', 'Confirmation'))
-            //         ->to($user->getEmail())
-            //         ->subject('Please Confirm your Email')
-            //         ->htmlTemplate('registration/confirmation_email.html.twig')
-            // );
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('contact@maison-des-ligues.com', 'Confirmation'))
+                    ->to($user->getEmail())
+                    ->subject('Please Confirm your Email')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_login');
@@ -107,13 +106,13 @@ class SecurityController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // validate email confirmation link, sets User::isVerified=true and persists
-        // try {
+        try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        // } catch (VerifyEmailExceptionInterface $exception) {
-        //     $this->addFlash('verify_email_error', $exception->getReason());
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $exception->getReason());
 
-        //     return $this->redirectToRoute('app_register');
-        // }
+            return $this->redirectToRoute('app_register');
+        }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');

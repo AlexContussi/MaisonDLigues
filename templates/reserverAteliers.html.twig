@@ -33,72 +33,48 @@
     margin-left: 10%;
 }
 </style>
-<div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-    <strong>Vous n'êtes pas inscrit(e) ?</strong><a href="" id="inscrire" name="inscrire"> Cliquez ici pour vous inscrire.<a/>
 
-</div>
-<input id="inputAtelier" name="idAtelier" value="" hidden />
-<h1 class="title">Inscription aux ateliers</h1>
-<div class="boxtitle">
-    <h2 class="steps">Etape 1</h2>
-    <span>Veuillez choisir un ou plusieurs ateliers</span>
-</div>
-
-
-}
-</style>
-<div class="reservation">
-    <input id="inputAtelier" name="idAtelier" value="" hidden />
-    <h1 class="title">Inscription aux ateliers</h1>
-    <div class="boxtitle">
-        <h2 class="steps">Etape 1</h2>
-        <span>Veuillez choisir un ou plusieurs ateliers</span>
-    </div>
-
-    <div class="gridAteliers">
-        {% for index,atelier in ateliersData %}
-            <div class="card bg-light me-md-3 pt-3 px-3 w-100 pt-md-5 px-md-5 text-center overflow-hidden" idAtelierSelected="{{atelier.id}}" >
-                <div class="my-3 py-3"><h4 class="display-5">{{atelier.libelle}}</h4></div>
-                <div class="fiche bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:2%">
-                    {% for theme in atelier.themes %}
-                    <div class="text-light" >{{theme.libelle}}</div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-    {# 
-        {% for atelier in ateliersData %}
-            <div class="bg-light me-md-3 pt-3 px-3 w-50 pt-md-5 px-md-5 text-center overflow-hidden"  idAtelierSelected="{{atelier.id}}" style="max-width: 18rem;">
-                <div class="card-header">{{atelier.libelle}} </div>
-                <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text">
-                        {% for themes in atelier.themes %}
-                            - {{themes.libelle}}</br>
-                        {% endfor %}
-                    </p>
-                </div>
-            </div>
-        {% endfor %} #}
-    </div>
-
-    <input name="idFormule" value="" hidden />
-    <div class='divFormule'>
-        <h1>Ajouter une Nuite</h4>
-        <h2>Etape 2 </h2>
-        <div>Recap des réservations : <span class="recapReservation"></span></div>
-        <div class="divMacro">
-            <select class="form-control selectFormule">
-                {% for formule in formulesData %}
-                    <option value={{formule.id}}>{{formule.nom}}</option>
-                {% endfor %}
-            </select>
-            <div id="informationTarifsHotel"></div>
+{% if app.user.inscription %}
+    <div class="reservation">
+        <input id="inputAtelier" name="idAtelier" value="" hidden />
+        <h1 class="title">Inscription aux ateliers</h1>
+        <div class="boxtitle">
+            <h2 class="steps">Etape 1</h2>
+            <span>Veuillez choisir un ou plusieurs ateliers</span>
         </div>
+        <div class="gridAteliers">
+            {% for index,atelier in ateliersData %}
+                <div class="card bg-light me-md-3 pt-3 px-3 w-100 pt-md-5 px-md-5 text-center overflow-hidden" idAtelierSelected="{{atelier.id}}" >
+                    <div class="my-3 py-3"><h4 class="display-5">{{atelier.libelle}}</h4></div>
+                    <div class="fiche bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:2%">
+                        {% for theme in atelier.themes %}
+                        <div class="text-light" >{{theme.libelle}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <input name="idFormule" value="" hidden />
+        <div class='divFormule'>
+            <h1>Ajouter une Nuite</h4>
+            <h2>Etape 2 </h2>
+            <div>Recap des réservations : <span class="recapReservation"></span></div>
+            <div class="divMacro">
+                <select class="form-control selectFormule">
+                    {% for formule in formulesData %}
+                        <option value={{formule.id}}>{{formule.nom}}</option>
+                    {% endfor %}
+                </select>
+                <div id="informationTarifsHotel"></div>
+            </div>
+        </div>
+        <button id="btnValiderReservation" class="btn btn-primary">Valider la réservation</button>
     </div>
-
-    <button id="btnValiderReservation" class="btn btn-primary">Valider la réservation</button>
-</div>
+{% else %}
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>Vous n'êtes pas inscrit(e) ?</strong><a href="" id="inscrire" name="inscrire"> Cliquez ici pour vous inscrire.<a/>
+    </div>
+{% endif %}
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
  <script>
     $('#btnValiderReservation').hide();
@@ -117,14 +93,12 @@
                 $(this).addClass('selectedAtelier');
             }
         }
-        console.log(tabIdAteliers);
         $('.divFormule').show();
     });
 
     $('.selectedAtelier').click(function(){
         $(this).removeClass('selectedAtelier');
     });
-
 
     $('.btnAddMacro').click(function(){
         if(confirm('Ajouter une nouvelle nuite ?')) {
@@ -159,7 +133,7 @@
                     'tabNuites': JSON.stringify(tabNuites),
                 },
                 success: function (result) {
-                    $('.divMacro').append(result);
+                    location.reload();
                 }
             });
         }
@@ -170,18 +144,12 @@
             $.ajax({
                 method: "POST",
                 url: "inscription",
-                  data: {
-                    'idUser': 
-                },
                 success: function(results) { 
-                    alert(results);
+                    location.reload();
                 }
             });
         }
     });
-
-
-
 
 </script>
 

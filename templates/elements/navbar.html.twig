@@ -3,44 +3,44 @@
 {# {{dump(app.user)}} #}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"> 
-      <div class="navbar_left">
-      <img class="navbar-brand header_img" src="assets/images/Mdl-removebg.png">
-      <a class="navbar-brand" href="{{path('app_principal')}}">Maison des ligues</a>
-      </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="nav_center" id="navbarResponsive">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item {{( app.request.pathinfo == '/')? 'active': ''}}">
-           <a class="nav-link" href={{path('app_principal')}}>Accueil</a>
+  <div class="navbar_left">
+    <img class="navbar-brand header_img" src="assets/images/Mdl-removebg.png">
+    <a class="navbar-brand" href="{{path('app_principal')}}">Maison des ligues</a>
+  </div>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="nav_center" id="navbarResponsive">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item {{( app.request.pathinfo == '/')? 'active': ''}}">
+          <a class="nav-link" href={{path('app_principal')}}>Accueil</a>
+      </li>
+      <li class="nav-item {{( app.request.pathinfo == '/ateliers')? 'active': ''}}">
+        <a class="nav-link" href={{path('ateliers')}}>Ateliers</a>
+      </li>
+      <li class="nav-item {{( app.request.pathinfo == '/formules')? 'active': ''}}">
+        <a class="nav-link" href={{path('formules')}}>Formules hébergement</a>
+      </li>
+      {% if app.user %}
+        <li class="nav-item {{( app.request.pathinfo == '/reserverAteliers')? 'active': ''}}">
+          <a class="nav-link" href={{path('reserverAteliers')}}>Réserver des ateliers</a>
         </li>
-        <li class="nav-item {{( app.request.pathinfo == '/ateliers')? 'active': ''}}">
-          <a class="nav-link" href={{path('ateliers')}}>Ateliers</a>
-        </li>
-        <li class="nav-item {{( app.request.pathinfo == '/formules')? 'active': ''}}">
-          <a class="nav-link" href={{path('formules')}}>Formules hébergement</a>
-        </li>
-        {% if app.user %}
-          <li class="nav-item {{( app.request.pathinfo == '/reserverAteliers')? 'active': ''}}">
-            <a class="nav-link" href={{path('reserverAteliers')}}>Réserver des ateliers</a>
-          </li>
-        {% endif %}
-      </ul>
-    </div>
-    <div class="nav_right" id="navbarResponsive" >
-        <ul class="navbar-nav ms-auto">
-        {% if app.user %}
-            <a class="nav-link" href="">  Bonjour <strong>{{ app.user.username }}</strong> !</a>
-        {% endif %}
-        <div class=" dropdown">
+      {% endif %}
+    </ul>
+  </div>
+  <div class="nav_right" id="navbarResponsive" >
+    <ul class="navbar-nav ms-auto">
+      {% if app.user %}
+          <a class="nav-link" href="">  Bonjour <strong>{{ app.user.username }}</strong> !</a>
+      {% endif %}
+      <div class=" dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-        </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+          </svg>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#">Réservation</a>
+          {# <a class="dropdown-item" href="{{path('mesInscriptions')}}">Mes réservations</a> #}
           <a class="dropdown-item" href="#">Modifier</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href={{(app.user)? path('app_logout') : path('app_login')}} >{{(app.user)? 'Se déconnecter' : 'Se connecter'}}</a>
@@ -51,83 +51,83 @@
 </nav>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top:55px;">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100 h-80" src="https://www.lejdd.fr/lmnr/var/jdd/public/media/image/2022/07/19/12/escrime-comment-les-francais-apprivoisent-leurs-armes.jpg?VersionId=Mw31AogdDUwVLuCaVdxMozm9kito7TTP" alt="First slide" style="background-size: cover;">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Nos ateliers</h5>
-                <p>Pour avoir plus d'informations sur l'inscription à nos ateliers !</p>
-                <button class="btn btn-dark rightside_button" type="button"><a href={{path('ateliers')}}>En savoir +</a></button>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="https://www.escrime-luneville.net/wp-content/uploads/2017/07/img-01.jpg" alt="Second slide">
-             <div class="carousel-caption d-none d-md-block">
-                <h5>Les dates du congrès</h5>
-                <p>Pour avoir plus d'informations sur la réservation de nos ateliers !</p>
-                <button class="btn btn-dark rightside_button" type="button"><a href="">En savoir +</a></button>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="https://www.tisport.bzh/wp-content/uploads/2021/07/Cecilia-Berder-FFE-min-min-1.jpg" alt="Third slide">
-             <div class="carousel-caption d-none d-md-block">
-                <h5>Nos formules d'hébergement</h5>
-                <p>Pour consulter nos différentes formules d'hébergements et bénéficier de prix réduit avec nos hôtels partenaires !</p>
-                <button class="btn btn-dark rightside_button" type="button"><a href={{path('formules')}}>En savoir +</a></button>
-            </div>
-        </div>
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    {# <li data-target="#carouselExampleIndicators" data-slide-to="1"></li> #}
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100 h-80" src="https://www.lejdd.fr/lmnr/var/jdd/public/media/image/2022/07/19/12/escrime-comment-les-francais-apprivoisent-leurs-armes.jpg?VersionId=Mw31AogdDUwVLuCaVdxMozm9kito7TTP" alt="First slide" style="background-size: cover;">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Nos ateliers</h5>
+        <p>Pour avoir plus d'informations sur l'inscription à nos ateliers !</p>
+        <button class="btn btn-dark rightside_button" type="button"><a href={{path('ateliers')}}>En savoir +</a></button>
+      </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+    {# <div class="carousel-item">
+      <img class="d-block w-100" src="https://www.escrime-luneville.net/wp-content/uploads/2017/07/img-01.jpg" alt="Second slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Les dates du congrès</h5>
+        <p>Pour avoir plus d'informations sur la réservation de nos ateliers !</p>
+        <button class="btn btn-dark rightside_button" type="button"><a href="">En savoir +</a></button>
+      </div>
+    </div> #}
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://www.tisport.bzh/wp-content/uploads/2021/07/Cecilia-Berder-FFE-min-min-1.jpg" alt="Third slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Nos formules d'hébergement</h5>
+        <p>Pour consulter nos différentes formules d'hébergements et bénéficier de prix réduit avec nos hôtels partenaires !</p>
+        <button class="btn btn-dark rightside_button" type="button"><a href={{path('formules')}}>En savoir +</a></button>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
-     <style>
-         .carousel-item {
-  height: 65vh;
-  min-height: 350px;
-  background: no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-img.d-block.w-100 {
+<style>
+  .carousel-item {
+    height: 65vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  img.d-block.w-100 {
     filter: brightness(0.5);
-}
-.fixed-top{
+  }
+  .fixed-top{
     height: 55px!important;
-}
-/*
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-}*/
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(40px, 55px);
-}
-.navbar_left {
-    display: flex;
-    align-items: center;
-}
-.nav_right{
-    display: contents;
-}
-ul.navbar-nav.ms-auto {
-    display: flex;
-    justify-content: center;
-}
-     </style>
+  }
+  /*
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
+      display: flex;
+      align-content: center;
+      justify-content: space-between;
+  }*/
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: minmax(40px, 55px);
+  }
+  .navbar_left {
+      display: flex;
+      align-items: center;
+  }
+  .nav_right{
+      display: contents;
+  }
+  ul.navbar-nav.ms-auto {
+      display: flex;
+      justify-content: center;
+  }
+</style>
 {% endblock %}
