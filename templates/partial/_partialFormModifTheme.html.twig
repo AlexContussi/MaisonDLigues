@@ -1,0 +1,11 @@
+{# {{dump(theme)}} #}
+
+<form method="post" action="{{path('ajaxModifTheme',{'idTheme':theme.id})}}">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="labelLibelleTheme">Le libelle du thème</span>
+        </div>
+        <input type="text" class="form-control" id="libelleTheme" aria-describedby="labelLibelleTheme" name="libelleTheme" value="{{theme.libelle}}">
+    </div>
+    <button type="submit">Valider les modifications</button>
+</form>

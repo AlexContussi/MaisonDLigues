@@ -1,0 +1,36 @@
+
+<h2>Modifier l'atelier</h2>
+<form method="post" action="{{path('ajaxModifAtelier',{'idAtelier':atelier.id})}}">
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="labelLibelleAtelier">Le libelle de l'atelier</span>
+    </div>
+    <input type="text" class="form-control" id="libelleAtelier" aria-describedby="labelLibelleAtelier" name="libelleAtelier" value="{{atelier.libelle}}">
+    </div>
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="labelNbPLaceAtelier">Nombre de place maximum</span>
+    </div>
+    <input type="number" min="0" max="100" class="form-control" id="nbPlaceAtelier" name="nbPlaceAtelier" aria-describedby="labelNbPLaceAtelier" value="{{atelier.nbPlacesMaxi}}">
+    </div>
+    <button type="submit">Valider les modifications</button>
+</form>
+<select id="selectTheme">
+    {% for theme in atelier.themes %}
+        <option value="{{theme.id}}">{{theme.libelle}}</option>
+    {% endfor %}
+</select>
+<div id='divAfficherThemeModifier'></div>
+<script>
+    $('#selectTheme').change(function(){
+        $.ajax({
+            method: "POST",
+            url: "ajaxAfficherThemeModifier",
+            data:{'idTheme':$(this).val()},
+            success: function (result) {
+                $('#divAfficherThemeModifier').html(result);
+            }
+        });
+    })
+
+</script>

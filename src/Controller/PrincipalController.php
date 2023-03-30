@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Atelier;
 use App\Entity\Hotel;
+use App\Entity\Compte;
+use App\Entity\Theme;
 use App\Entity\Proposer;
 use App\Entity\Nuite;
 use App\Entity\Inscription;
@@ -116,6 +118,44 @@ class PrincipalController extends AbstractController
         new JsonResponse('Ok');
       }
         
+    }
+
+    #[Route('/adminModifAteliers', name: 'adminModifAteliers')]
+    public function adminModifAteliers(EntityManagerInterface $em){
+
+        return $this->render('modifAteliers.html.twig', [
+            'ateliers'=> $em->getRepository(Atelier::class)->findAll(),
+        ]);
+    }
+
+    #[Route('/ajaxAfficherAtelierModifier', name: 'ajaxAfficherAtelierModifier')]
+    public function ajaxAfficherAtelierModifier(EntityManagerInterface $em,Request $request){
+        $atelier= $em->getRepository(Atelier::class)->findOneById($request->request->get('idAtelier'));
+        return $this->render('partial/_partialFormModifAtelier.html.twig', [
+            'atelier'=> $atelier,
+        ]);
+    }
+    #[Route('/ajaxAfficherThemeModifier', name: 'ajaxAfficherThemeModifier')]
+    public function ajaxAfficherThemeModifier(EntityManagerInterface $em,Request $request){
+        $theme= $em->getRepository(Theme::class)->findOneById($request->request->get('idTheme'));
+        return $this->render('partial/_partialFormModifTheme.html.twig', [
+            'theme'=> $theme,
+        ]);
+    }
+    #[Route('/ajaxModifAtelier/{idAtelier}', name: 'ajaxModifAtelier')]
+    public function ajaxModifAtelier(Atelier $idAtelier,EntityManagerInterface $em,Request $request){
+        $idAtelier->setLibelle($request->request->get('libelleAtelier'));
+        $idAtelier->setNbPlacesMaxi(intval($request->request->get('nbPlaceAtelier')));
+        $em->persist($idAtelier);
+        $em->flush();
+        return $this->redirectToRoute('adminModifAteliers');
+    }
+    #[Route('/ajaxModifTheme/{idTheme}', name: 'ajaxModifTheme')]
+    public function ajaxModifTheme(Theme $idTheme,EntityManagerInterface $em,Request $request){
+        $idTheme->setLibelle($request->request->get('libelleTheme'));
+        $em->persist($idTheme);
+        $em->flush();
+        return $this->redirectToRoute('adminModifAteliers');
     }
     
 

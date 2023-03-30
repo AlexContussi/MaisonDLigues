@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+.gridAteliers{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 2% 2%;
+    row-gap: 2%; 
+    column-gap: 2%; 
+    margin-bottom:2%
+    
+}
+</style>
+<div class="gridAteliers">
+    {% for index,atelier in ateliers %}
+        <div class="card bg-light me-md-3 pt-3 px-3 w-100 pt-md-5 px-md-5 text-center overflow-hidden" idAtelierSelected="{{atelier.id}}" >
+            <div class="my-3 py-3"><h4 class="display-5">{{atelier.libelle}}</h4></div>
+            <div class="fiche bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;padding:2%">
+                {% for theme in atelier.themes %}
+                <div class="text-light" >{{theme.libelle}}</div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div id='partialFormModifAtelier'></div>
+
+
+<script>
+$('.card').click(function(){
+    $.ajax({
+        method: "POST",
+        url: "ajaxAfficherAtelierModifier",
+        data:{'idAtelier':$(this).attr('idAtelierSelected')},
+        success: function (result) {
+            $('#partialFormModifAtelier').html(result);
+        }
+    });
+});
+
+
+
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}

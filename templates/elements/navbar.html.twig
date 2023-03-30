@@ -41,7 +41,9 @@
         </button>
         <div class="dropdown-menu dropdown-menu-right">
           {# <a class="dropdown-item" href="{{path('mesInscriptions')}}">Mes réservations</a> #}
-          <a class="dropdown-item" href="#">Modifier</a>
+          {% if (app.user) and ('ROLE_ADMIN' in app.user.roles)%}
+            <a class="dropdown-item" href="{{path('adminModifAteliers')}}">Modifier les ateliers</a>
+          {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href={{(app.user)? path('app_logout') : path('app_login')}} >{{(app.user)? 'Se déconnecter' : 'Se connecter'}}</a>
         </div>
