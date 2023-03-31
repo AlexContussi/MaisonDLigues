@@ -1,32 +1,51 @@
-
+<style>
+    .modificationButton{
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        padding-bottom: 2%;
+    }
+    .divselectTheme{
+        padding-bottom: 2%;
+         padding-top: 1%;
+         width: 25%;
+         margin-left: 38%;
+    }
+</style>
 <h2>Modifier l'atelier</h2>
 <form method="post" action="{{path('ajaxModifAtelier',{'idAtelier':atelier.id})}}">
     <div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="labelLibelleAtelier">Le libelle de l'atelier</span>
-    </div>
-    <input type="text" class="form-control" id="libelleAtelier" aria-describedby="labelLibelleAtelier" name="libelleAtelier" value="{{atelier.libelle}}">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="labelLibelleAtelier">Le libelle de l'atelier</span>
+        </div>
+        <input type="text" class="form-control" id="libelleAtelier" aria-describedby="labelLibelleAtelier" name="libelleAtelier" value="{{atelier.libelle}}">
     </div>
     <div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="labelNbPLaceAtelier">Nombre de place maximum</span>
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="labelNbPLaceAtelier">Nombre de place maximum</span>
+        </div>
+        <input type="number" min="0" max="100" class="form-control" id="nbPlaceAtelier" name="nbPlaceAtelier" aria-describedby="labelNbPLaceAtelier" value="{{atelier.nbPlacesMaxi}}">
     </div>
-    <input type="number" min="0" max="100" class="form-control" id="nbPlaceAtelier" name="nbPlaceAtelier" aria-describedby="labelNbPLaceAtelier" value="{{atelier.nbPlacesMaxi}}">
+    <div class='modificationButton'>
+        <button type="submit" class="btn btn-secondary">Valider les modifications</button>
     </div>
-    <button type="submit">Valider les modifications</button>
 </form>
-<select id="selectTheme">
-    {% for theme in atelier.themes %}
-        <option value="{{theme.id}}">{{theme.libelle}}</option>
-    {% endfor %}
-</select>
+<h2>Modifier un de ses thèmes</h2>
+<div class='divselectTheme'>
+    <select id="selectTheme" class="form-select" >
+        {% for theme in atelier.themes %}
+            <option value="{{theme.id}}">{{theme.libelle}}</option>
+        {% endfor %}
+    </select>
+</div>
 <div id='divAfficherThemeModifier'></div>
 <script>
-    $('#selectTheme').change(function(){
+    $('#selectTheme').change(function () {
         $.ajax({
             method: "POST",
             url: "ajaxAfficherThemeModifier",
-            data:{'idTheme':$(this).val()},
+            data: {'idTheme': $(this).val()},
             success: function (result) {
                 $('#divAfficherThemeModifier').html(result);
             }

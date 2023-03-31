@@ -20,7 +20,7 @@
 .selectedAtelier {box-shadow: 10px 5px 5px gray;}
 .dateReservation{}
 
-.boxtitle span{
+.boxtitle span , .recapRes{
     color: darkgreen;
 }
 .input-group.mb-3{
@@ -31,6 +31,25 @@
 }
 .btnSubmitFormReserverAterlier{
     margin-left: 10%;
+}
+.divMacro {
+    width: 50%;
+    display: inline-block;
+    padding-top: 2%;
+}
+input[type="radio"] {
+    margin: 2%;
+}
+input.form-control {
+    
+}
+.datesCongres {
+    /* width: 100% */
+    padding-left: 30%;
+    margin-right: 2%;
+}
+button#btnValiderReservation {
+    margin-top: 2%;
 }
 </style>
 
@@ -58,7 +77,7 @@
         <div class='divFormule'>
             <h1>Ajouter une Nuite</h4>
             <h2>Etape 2 </h2>
-            <div>Recap des réservations : <span class="recapReservation"></span></div>
+            <div class="recapRes">Recap des réservations : <span class="recapReservation"></span></div>
             <div class="divMacro">
                 <select class="form-control selectFormule">
                     {% for formule in formulesData %}

@@ -11,6 +11,21 @@
     margin-bottom:2%
     
 }
+h2{
+    text-align: center
+}
+form {
+    padding-top: 2%;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.selectedAtelier {box-shadow: 10px 5px 5px gray; }
+
+.partialFormModifAtelier{
+    margin-bottom: 5%;
+}
+
 </style>
 <div class="gridAteliers">
     {% for index,atelier in ateliers %}
@@ -36,13 +51,34 @@ $('.card').click(function(){
         data:{'idAtelier':$(this).attr('idAtelierSelected')},
         success: function (result) {
             $('#partialFormModifAtelier').html(result);
+            // console.log(this.data);
+            // console.log(this);
         }
     });
 });
+// A modifier 
+ const tabIdAteliers =[];
+$('.card').click(function(){
+        if($(this).hasClass('selectedAtelier')){
+            tabIdAteliers.splice($.inArray($(this).attr('idAtelierSelected'), tabIdAteliers), 1 );
+            $(this).removeClass('selectedAtelier');
+        }else{
+            if(tabIdAteliers.length >= 1 ){ 
+                alert('Vous ne pouvez que modifier 1 ateliers à la fois');
+                 $(this).removeClass('selectedAtelier');
+                 
+            }else{
+                tabIdAteliers.push($(this).attr('idAtelierSelected'));
+                $(this).addClass('selectedAtelier');
+            }
+        }
+    });
 
+  $('.selectedAtelier').click(function(){
+        $(this).removeClass('selectedAtelier');
+    });
 
-
-
+//---------------
 
 
 </script>

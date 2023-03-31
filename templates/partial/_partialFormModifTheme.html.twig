@@ -1,5 +1,13 @@
 {# {{dump(theme)}} #}
-
+<style>
+    .modificationButton{
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        margin-bottom: 3%;
+    }
+</style>
 <form method="post" action="{{path('ajaxModifTheme',{'idTheme':theme.id})}}">
     <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -7,5 +15,7 @@
         </div>
         <input type="text" class="form-control" id="libelleTheme" aria-describedby="labelLibelleTheme" name="libelleTheme" value="{{theme.libelle}}">
     </div>
-    <button type="submit">Valider les modifications</button>
+    <div class='modificationButton'>
+    <button type="submit" class="btn btn-secondary">Valider les modifications</button>
+    </div>
 </form>
