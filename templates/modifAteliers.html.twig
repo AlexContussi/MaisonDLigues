@@ -45,41 +45,17 @@ form {
 
 <script>
 $('.card').click(function(){
+    $('.card').removeClass('selectedAtelier');
+    $(this).addClass('selectedAtelier');
     $.ajax({
         method: "POST",
         url: "ajaxAfficherAtelierModifier",
         data:{'idAtelier':$(this).attr('idAtelierSelected')},
         success: function (result) {
             $('#partialFormModifAtelier').html(result);
-            // console.log(this.data);
-            // console.log(this);
         }
     });
 });
-// A modifier 
- const tabIdAteliers =[];
-$('.card').click(function(){
-        if($(this).hasClass('selectedAtelier')){
-            tabIdAteliers.splice($.inArray($(this).attr('idAtelierSelected'), tabIdAteliers), 1 );
-            $(this).removeClass('selectedAtelier');
-        }else{
-            if(tabIdAteliers.length >= 1 ){ 
-                alert('Vous ne pouvez que modifier 1 ateliers à la fois');
-                 $(this).removeClass('selectedAtelier');
-                 
-            }else{
-                tabIdAteliers.push($(this).attr('idAtelierSelected'));
-                $(this).addClass('selectedAtelier');
-            }
-        }
-    });
-
-  $('.selectedAtelier').click(function(){
-        $(this).removeClass('selectedAtelier');
-    });
-
-//---------------
-
 
 </script>
 
