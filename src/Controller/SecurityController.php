@@ -117,29 +117,7 @@ class SecurityController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_principal');
     }
-    // #[Route(path: '/inscription', name: 'app_register_2')]
-    // public function app_register_2(): Response
-    // {
-    //     return $this->render('security/registerEtape1.html.twig', [
-    //         'controller_name' => 'SecurityController',
-    //     ]);
-    
-    // }
-
-    // #[Route(path: '/verifierNumLicence', name: 'verifierNumLicence')]
-    // public function verifierNumLicence(Request $request,EntityManagerInterface $em,): Response
-    // {
-    //     $numLicence = $request->request->get('numlicence');
-    //     $licenceData = $em->getRepository(Licencie::class)->findOneByNumlicence($numLicence);
-    //     if($licenceData != null){
-    //         return $this->render('security/registerEtape2.html.twig', [
-    //             'controller_name' => 'SecurityController',
-    //             'licenceData' => $licenceData,
-    //         ]);
-    //     }else{
-    //         return new JsonResponse('erreur');
-    //     }    
-    // }
+   
 }
