@@ -41,15 +41,14 @@
 </div>
 <div id='divAfficherThemeModifier'></div>
 <script>
-    $('#selectTheme').change(function () {
-        $.ajax({
-            method: "POST",
-            url: "ajaxAfficherThemeModifier",
-            data: {'idTheme': $(this).val()},
-            success: function (result) {
-                $('#divAfficherThemeModifier').html(result);
-            }
-        });
-    }),
-
+$('#selectTheme').change(function(){
+    $.ajax({
+        method: "POST",
+        url: "ajaxAfficherThemeModifier",
+        data: {'idTheme': $(this).val()},
+        success: function(result) {
+            $('#divAfficherThemeModifier').html(result);
+        }
+    });
+});
 </script>
