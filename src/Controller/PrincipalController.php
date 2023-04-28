@@ -99,11 +99,8 @@ class PrincipalController extends AbstractController
         }
         $em->flush();
 
-        return $this->render('test.html.twig', [
-            'tabNuites'=>$tabNuites,
-            'idsAteliers'=>$idsAteliers,
-            'user'=>$this->getUser(),
-        ]);
+        return $this->redirectToRoute('reserverAteliers');
+
     }
     
     #[Route('/inscription', name: 'inscription')]
