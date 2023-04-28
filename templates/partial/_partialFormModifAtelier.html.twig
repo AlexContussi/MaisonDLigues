@@ -41,6 +41,7 @@
 </div>
 <div id='divAfficherThemeModifier'></div>
 <script>
+<<<<<<< Updated upstream
 $('#selectTheme').change(function(){
     $.ajax({
         method: "POST",
@@ -51,4 +52,17 @@ $('#selectTheme').change(function(){
         }
     });
 });
+=======
+    $('#selectTheme').change(function () {
+        $.ajax({
+            method: "POST",
+            url: "ajaxAfficherThemeModifier",
+            data: {'idTheme': $(this).val()},
+            success: function (result) {
+                $('#divAfficherThemeModifier').html(result);
+            }
+        });
+    });
+
+>>>>>>> Stashed changes
 </script>
