@@ -34,7 +34,6 @@ $('input[name = "dateReservation1"]').change(function(){
     $('input[name = "dateReservation2"]').prop('disabled', false);
     $('input[name = "dateReservation2"]').attr('min',$('input[name = "dateReservation1"]').val());
     $('input[name = "dateReservation2"]').val(null);
-
 })
 
 $('#btnAddTarif').click(function(){
@@ -49,9 +48,9 @@ $('#btnAddTarif').click(function(){
         }else{
             alert('Veuillez compléter tout les champs');
         }
-
     }
 })
+
 function verifTarifSelected(){
     var isChecked =false;
     $('input[name = "radioTarif"]').each(function(index){
