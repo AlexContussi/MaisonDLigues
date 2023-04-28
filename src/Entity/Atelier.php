@@ -6,9 +6,11 @@ use App\Repository\AtelierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[ORM\Table(name: 'atelier')]
 #[ORM\Entity(repositoryClass: AtelierRepository::class)]
+    
 class Atelier
 {
     #[ORM\Id]

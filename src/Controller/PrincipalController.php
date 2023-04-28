@@ -17,6 +17,7 @@ use App\Entity\Inscription;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DateTime;
+use App\Form\CreationAtelierType;
 
 class PrincipalController extends AbstractController
 {
@@ -156,6 +157,28 @@ class PrincipalController extends AbstractController
         $em->persist($idTheme);
         $em->flush();
         return $this->redirectToRoute('adminModifAteliers');
+    }
+    
+    #[Route('/adminCreerAteliers', name: 'adminCreerAteliers')]
+    public function adminCreerAteliers(Request $request,EntityManagerInterface $em): Response
+    {
+        $task = new Atelier();
+        $form = $this->createForm(CreationAtelierType::class, $task);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($task->getThemes() as $theme) {
+                $theme->addAtelier($task);
+            }
+            $task = $form->getData();
+            $em->persist($task);
+            $em->flush();
+            $this->addFlash('success', 'Atelier created successfully.');
+
+            return $this->redirectToRoute('adminCreerAteliers');
+        }
+        return $this->render('partial/creer/creerAteliers.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
     
 

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        div#creation_atelier_themes {
+    display: grid;
+    grid-template-columns: repeat(4, 50px 400px );
+}
+div#creation_atelier_vacations{
+    display: grid;
+    grid-template-columns: repeat(18, 50px 50px );
+}
+input {
+    max-height: 30px;
+}
+label {
+    min-height: 50px;
+}
+.box{
+    padding: 5% 5%;
+}
+h1{
+    text-align: center;
+    padding-bottom: 2%;
+}
+    </style>
+    <div class='box'>
+        <h1 class="title">Créer un atelier</h1>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    </div>
+{% endblock %}
