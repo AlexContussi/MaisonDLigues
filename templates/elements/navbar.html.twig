@@ -42,10 +42,10 @@
         <div class="dropdown-menu dropdown-menu-right">
           {# <a class="dropdown-item" href="{{path('mesInscriptions')}}">Mes réservations</a> #}
           {% if (app.user) and ('ROLE_ADMIN' in app.user.roles)%}
-            <a class="dropdown-item" href="{{path('adminModifAteliers')}}">Modifier les ateliers</a>
+            <a class="dropdown-item" href="{{path('adminModifAteliers')}}">Modifier un atelier</a>
           {% endif %}
            {% if (app.user) and ('ROLE_ADMIN' in app.user.roles)%}
-            <a class="dropdown-item" href="{{path('adminCreerAteliers')}}">Ajouter les ateliers</a>
+            <a class="dropdown-item" href="{{path('adminCreerAteliers')}}">Ajouter un atelier</a>
           {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href={{(app.user)? path('app_logout') : path('app_login')}} >{{(app.user)? 'Se déconnecter' : 'Se connecter'}}</a>
